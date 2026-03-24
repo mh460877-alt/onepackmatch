@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administrador - Universidad de San Pablo-T</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./img/favicon.png" sizes="32x32">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="./img/favicon.png">
+
+    <!-- EXO 2 (Títulos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/main.css">
+
+
+</head>
+
+
+
+<body data-page="dashboard">
+    <div class="bg" aria-hidden="true">
+        <canvas id="stars"></canvas>
+        <div class="hex"></div>
+    </div>
+
+    <div id="message-box"></div>
+
+    <!-- LOGIN -->
+    <div id="admin-login-view">
+        <div class="login-card">
+            <div class="login-logo"></div>
+            <h1 class="login-title">Panel de Administración</h1>
+            <p class="login-subtitle">Ingresa tus credenciales para acceder al sistema</p>
+
+            <form id="admin-login-form">
+                <div class="field-group">
+                    <label for="admin-user">Usuario</label>
+                    <input id="admin-user" name="admin-user" type="text" required placeholder="admin">
+                </div>
+                <div class="field-group">
+                    <label for="admin-pass">Contraseña</label>
+                    <input id="admin-pass" name="admin-pass" type="password" required placeholder="••••••••">
+                </div>
+                <div class="error-text" id="login-error"></div>
+                <button type="submit" class="btn btn-primary"><span>Ingresar al Panel</span></button>
+            </form>
+
+            <span class="back-link" id="back-to-participant">← Volver a la página de participantes</span>
+        </div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="admin-panel-view" class="page hidden">
+        <header class="header">
+            <div class="header-inner">
+                <div class="brand">
+                    <div class="brand-logo"></div>
+                    <div>
+                        <div class="brand-text-main">Universidad de San Pablo-T</div>
+                        <div class="brand-text-sub">Panel de Administración</div>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="status-dot"></div>
+                    <span>Admin conectado</span>
+                    <button class="btn btn-ghost" id="admin-logout"><span>Cerrar Sesión</span></button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <section>
+                <h1 class="section-title">Gestión de Usuarios</h1>
+                <p class="section-subtitle">
+                    Administra los usuarios participantes y sus tests habilitados.
+                </p>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Usuarios registrados</h3>
+                        <span class="panel-meta" id="user-count-text">0 usuarios registrados</span>
+                    </div>
+
+                    <!-- NUEVO: toolbar con buscador -->
+                    <div class="toolbar">
+                        <div class="search-wrap" title="Buscar por usuario, puesto o test">
+                            <div class="search-icon">🔎</div>
+                            <input id="user-search" type="text" placeholder="Buscar por usuario, puesto o test..."
+                                autocomplete="off" />
+                        </div>
+                        <button class="btn btn-ghost btn-clear" id="clear-search"><span>Limpiar</span></button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-username">Usuario</th>
+                                    <th class="col-password">Contraseña</th>
+                                    <th class="col-puesto">Puesto</th>
+                                    <th class="col-tests">Tests Habilitados</th>
+                                    <th class="col-actions">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <aside>
+                <div class="form-panel">
+                    <h2 class="form-title" id="form-title">Agregar nuevo usuario</h2>
+                    <p class="form-subtitle" id="form-subtitle">
+                        Completa los datos para crear un nuevo usuario participante y selecciona los test vocacional que
+                        tendrá
+                        habilitados.
+                    </p>
+
+                    <div id="edit-indicator" class="edit-badge hidden">
+                        ✏️ Editando: <strong id="edit-username"></strong>
+                    </div>
+
+                    <form id="user-form">
+                        <div class="field-group">
+                            <label for="userName">Usuario</label>
+                            <input id="userName" name="userName" type="text" placeholder="Ej: usuario123" required />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="userPassword">Contraseña</label>
+                            <input id="userPassword" name="userPassword" type="password" placeholder="********"
+                                required />
+                        </div>
+
+                        <div class="field-group">
+                            <label for="userPuesto">Promoción</label>
+                            <input id="userPuesto" name="userPuesto" type="text" placeholder="Ej: 6to Año A" required />
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label>Test Vocacional Habilitados (selecciona al menos uno)</label>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="1" />
+                                    <span>Test 1: DAT</span><br>
+                                </label>
+
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="2" />
+                                    <span>Test 2: KUDER</span><br>
+                                </label>
+
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="3" />
+                                    <span>Test 3: IPP</span><br>
+                                </label>
+
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="4" />
+                                    <span>Test 4: WAIS</span><br>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="5" />
+                                    <span>Test 5: Domino 48</span><br>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="6" />
+                                    <span>Test 6: Big Five</span><br>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="test" value="7" />
+                                    <span>Test 7: Chaside</span><br>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin: 15px 0; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border: 1px solid #e9ecef;">
+                            <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="chkReenvio" style="width: 18px; height: 18px;">
+                                <span style="font-weight: 600; color: #444;">Reenvío Simultáneo</span>
+                            </label>
+                            <p style="font-size: 0.8rem; color: #666; margin: 5px 0 0 28px;">
+                                Al hacer click, acepta que el informe sea recibido por ambos, de lo contrario solo lo
+                                recibira
+                                el administrador.
+                            </p>
+                        </div>
+
+                        <div class="error-text" id="form-error"></div>
+                        <div class="status-text" id="form-status"></div>
+
+                        <button type="submit" class="btn btn-primary btn-full" id="submit-button">
+                            <span><span class="btn-icon">＋</span> Guardar usuario</span>
+                        </button>
+
+                        <div id="edit-actions" class="edit-actions hidden">
+                            <button type="button" class="btn btn-ghost btn-full btn-small" id="cancel-edit">
+                                <span>Cancelar edición</span>
+                            </button>
+                        </div>
+
+                        <div class="form-footer">
+                            <span class="dot-soft"></span>
+                            <span>Sincronizando con base de datos One...</span>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+        </main>
+
+        <footer class="page-footer">
+            <span>© 2026 ONE · Panel de Administración.</span>
+            <span>Plataforma automatizada para administración de usuarios y evaluaciones.</span>
+        </footer>
+    </div>
+
+    <script type="module" src="./assets/js/main.js"></script>
+    <script src="./assets/js/table-responsive-helper.js"></script>
+    <script src="./assets/js/responsive-helpers.js"></script>
+    <script src="./assets/js/pagination.js"></script>
+</body>
+
+</html>

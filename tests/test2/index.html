@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test de Kuder - Registro de Preferencias Vocacionales</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+      min-height: 100vh;
+      padding: 24px;
+      overflow: auto;
+      background-image: url(./img/fondo-escencial.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: min(850px, 100% - 48px);
+      margin: 24px auto;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      padding: 48px;
+      position: relative;
+    }
+
+    h1 {
+      color: #020f27;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: -0.5px;
+      margin-top: 30px;
+    }
+
+    h2 {
+      color: #020f27;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 30px;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      color: #334155;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fff;
+      text-align: center;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      border-color: #0b4a6e;
+      box-shadow: 0 0 0 4px rgba(11, 74, 110, 0.1);
+      transform: translateY(-2px);
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #fff;
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(11, 74, 110, 0.4);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .logo {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      height: 64px;
+      width: auto;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0b4a6e 0%, #020f27 100%);
+      transition: width 0.4s ease;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(11, 74, 110, 0.3);
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 22px;
+      color: #020f27;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-align: center;
+      padding-bottom: 16px;
+    }
+
+    .instructions {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border-left: 4px solid #0b4a6e;
+      text-align: center;
+    }
+
+    .instructions p {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .instructions p:last-child {
+      margin-bottom: 0;
+    }
+
+    .triad-item {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .triad-number {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .activity-option {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .activity-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .activity-option:hover {
+      border-color: #0b4a6e;
+      transform: translateX(4px);
+    }
+
+    .activity-text {
+      flex: 1;
+      color: #334155;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0 16px;
+    }
+
+    .choice-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .choice-btn {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .choice-btn:hover {
+      border-color: #0b4a6e;
+    }
+
+    .choice-btn.active-mas {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      border-color: #059669;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .choice-btn.active-menos {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      border-color: #dc2626;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .navigation-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .navigation-buttons button {
+      flex: 1;
+    }
+
+    .area-card {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .area-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .area-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #020f27;
+    }
+
+    .area-score-badge {
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .area-bar {
+      width: 100%;
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .area-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0b4a6e 0%, #020f27 100%);
+      border-radius: 9999px;
+      transition: width 0.5s ease;
+    }
+
+    .area-percentile {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .area-description {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .professions-list {
+      margin-top: 16px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+    }
+
+    .professions-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #020f27;
+      margin-bottom: 8px;
+    }
+
+    .professions-list ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .professions-list li {
+      padding: 6px 0;
+      color: #475569;
+      font-size: 13px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .professions-list li:before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #0b4a6e;
+      font-weight: 700;
+    }
+
+    .validity-warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    .validity-warning p {
+      color: #92400e;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .validity-success {
+      background: #ecfeff;
+      border-left: 4px solid #06b6d4;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    .validity-success p {
+      color: #0e7490;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .profile-summary {
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      color: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(11, 74, 110, 0.4);
+    }
+
+    .profile-code {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 8px;
+    }
+
+    .profile-description {
+      font-size: 16px;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        width: min(850px, 100% - 24px);
+        padding: 28px 20px;
+        border-radius: 18px;
+        margin: 12px auto;
+      }
+
+      /* Logo: más pequeño y no se superpone al contenido */
+      .logo {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: block;
+        margin: 0 auto 8px auto;
+        height: 52px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-top: 12px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      /* Progreso */
+      .progress-text {
+        font-size: 13px;
+      }
+
+      /* Instrucciones */
+      .instructions {
+        padding: 16px;
+      }
+      .instructions p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+      }
+
+      /* Sección título */
+      .section-title {
+        font-size: 19px;
+      }
+
+      /* Triada */
+      .triad-item {
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      /* Activity option: mantener en fila, ajustar espaciado */
+      .activity-option {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px;
+        gap: 8px;
+      }
+
+      .activity-text {
+        font-size: 14px;
+        padding: 0 10px;
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* Botones +/- en fila horizontal siempre */
+      .choice-buttons {
+        flex-direction: row;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .choice-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+        border-radius: 8px;
+      }
+
+      /* Navegación */
+      .navigation-buttons {
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .btn {
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+
+      /* Resultados */
+      .profile-summary {
+        padding: 24px 16px;
+      }
+      .profile-code {
+        font-size: 36px;
+        letter-spacing: 5px;
+      }
+      .profile-description {
+        font-size: 14px;
+      }
+
+      .area-card {
+        padding: 18px;
+      }
+      .area-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .area-name {
+        font-size: 16px;
+      }
+    }
+
+    /* Móviles pequeños */
+    @media (max-width: 420px) {
+      body {
+        padding: 6px;
+      }
+
+      .container {
+        width: 100%;
+        padding: 20px 14px;
+        border-radius: 14px;
+        margin: 6px auto;
+      }
+
+      .logo {
+        height: 44px;
+      }
+
+      h1 {
+        font-size: 21px;
+        margin-top: 8px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      /* Triada más compacta */
+      .triad-item {
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .triad-number {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .activity-option {
+        padding: 10px;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      .activity-text {
+        font-size: 13px;
+        padding: 0 6px;
+        line-height: 1.4;
+      }
+
+      .choice-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+      }
+
+      .instructions {
+        padding: 14px;
+      }
+      .instructions p {
+        font-size: 13px;
+      }
+
+      .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+
+      /* Resultados */
+      .profile-code {
+        font-size: 30px;
+        letter-spacing: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="../../img/logo-escencial.png" alt="Escencial Consultora" class="logo" />
+
+    <!-- REGISTRO -->
+    <div id="registrationScreen">
+      <h1>Test de Kuder</h1>
+      <p class="subtitle">
+        <strong>Registro de Preferencias Vocacionales</strong><br>
+        Este cuestionario te ayudará a descubrir tus áreas de interés vocacional y profesional.
+        No hay respuestas correctas o incorrectas, solo tus preferencias personales.<br>
+      </p>
+      <p class="subtitle">Complete los datos para comenzar.</p>
+
+      <div class="form-group">
+        <label for="userName">Nombre</label>
+        <input type="text" id="userName" placeholder="Ingrese su nombre" />
+      </div>
+      <div class="form-group">
+        <label for="userLastName">Apellido</label>
+        <input type="text" id="userLastName" placeholder="Ingrese su apellido" />
+      </div>
+      <div class="form-group">
+        <label for="userEmail">Correo electrónico</label>
+        <input type="email" id="userEmail" placeholder="correo@ejemplo.com" />
+      </div>
+
+      <button class="btn" id="startBtn" disabled>Comenzar Test</button>
+    </div>
+
+    <!-- TEST -->
+    <div id="testScreen" class="hidden">
+      <div class="progress-text">
+        <span id="pageIndicator">Sección 1</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="instructions">
+        <p><strong>Instrucciones</strong></p>
+        <p>En cada grupo de actividades, debes elegir:</p>
+        <p><strong>La que MÁS te gusta (+)</strong> y <strong>la que MENOS te gusta (-)</strong></p>
+        <p>La tercera actividad quedará sin marcar.</p>
+      </div>
+
+      <div id="sectionContainer"></div>
+
+      <div class="navigation-buttons">
+        <button class="btn" id="prevBtn" disabled>Anterior</button>
+        <button class="btn" id="nextBtn" disabled>Siguiente</button>
+      </div>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div id="resultsScreen" class="hidden">
+      <h1>Resultados del Test de Kuder</h1>
+
+      <div id="validityBox"></div>
+
+      <div class="profile-summary">
+        <div class="profile-code" id="profileCode">--</div>
+        <div class="profile-description" id="profileDescription">Tu código de perfil vocacional</div>
+      </div>
+
+      <h2>Áreas de Interés Vocacional</h2>
+      <div id="areasContainer"></div>
+
+      <button class="btn" id="restartBtn" style="margin-top: 32px">Realizar Nuevo Test</button>
+    </div>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+
+</body>
+
+</html>

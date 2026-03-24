@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pack One Talent - Test Vocacional</title>
+
+  <link rel="icon" type="image/png" href="./img/favicon.png" sizes="32x32">
+  <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="./img/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/main.css">
+
+</head>
+
+
+<body data-page="usuarios">
+  <div class="bg" aria-hidden="true">
+    <canvas id="stars"></canvas>
+    <div class="hex"></div>
+  </div>
+
+  <div id="login-view">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-logo"></div>
+          <h1 class="login-title">Bienvenido</h1>
+          <p class="login-subtitle">Panel de Orientación Vocacional</p>
+        </div>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username" class="form-label">Usuario</label>
+            <input type="text" id="username" class="form-input" placeholder="Ingresa tu usuario" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" id="password" class="form-input" placeholder="Ingresa tu contraseña" required>
+          </div>
+
+          <button type="submit" class="btn-primary" id="login-btn">
+            <span>Iniciar sesión</span>
+          </button>
+          <span class="back-link" id="back-to-participant">← Volver a la página de inicio</span>
+
+          <div class="error-message" id="error-message"></div>
+          <div class="loading-message" id="loading-message">Verificando credenciales...</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-view" class="hidden">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div>
+            <div class="brand-text-main">Pack One Talent</div>
+            <div class="brand-text-sub">Panel de Test Vocacional</div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="user-pill">
+            <span class="user-dot"></span>
+            <span id="user-name-pill">Usuario</span>
+          </div>
+          <button class="btn-secondary" id="logout-button">Cerrar sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1 class="welcome-title">Test Vocacional Habilitados</h1>
+        <p class="welcome-text" id="user-greeting">Aquí están tus evaluaciones habilitadas.</p>
+      </div>
+
+      <div class="evaluations-grid">
+        <article class="eval-card" id="test-1">
+          <div class="eval-icon">🧩</div>
+          <h3 class="eval-name">Test DAT</h3>
+          <p class="eval-desc">
+            Batería de pruebas diseñada para evaluar aptitudes cognitivas (verbal, numérica, abstracta, etc.) con el fin
+            de identificar el potencial de aprendizaje y brindar orientación vocacional.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test1/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+
+        <article class="eval-card" id="test-2">
+          <div class="eval-icon">🧭</div>
+          <h3 class="eval-name">Test KUDER</h3>
+          <p class="eval-desc">
+            Inventario de intereses vocacionales que evalúa las preferencias en diversas áreas (aire libre, artístico,
+            científico, etc.) para guiar la elección de una carrera satisfactoria.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test2/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+
+        <article class="eval-card" id="test-3">
+          <div class="eval-icon">💼</div>
+          <h3 class="eval-name">Test IPP</h3>
+          <p class="eval-desc">
+            Inventario diseñado para evaluar las preferencias hacia diversas profesiones y actividades, analizando la
+            atracción hacia distintos campos laborales para ofrecer una orientación precisa.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test3/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+        <article class="eval-card" id="test-4">
+          <div class="eval-icon">💼</div>
+          <h3 class="eval-name">Test WAIS</h3>
+          <p class="eval-desc">
+            Evalúa inteligencia global, habilidades cognitivas y funciones ejecutivas.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test4/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+
+        <article class="eval-card" id="test-5">
+          <div class="eval-icon">🧠</div>
+          <h3 class="eval-name">Domino 48</h3>
+          <p class="eval-desc">
+            Evalúa inteligencia no verbal, razonamiento lógico y resolución de problemas mediante 48 reactivos.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test5/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+        <article class="eval-card" id="test-6">
+          <div class="eval-icon">🧠</div>
+          <h3 class="eval-name">Big Five</h3>
+          <p class="eval-desc">
+            Evalúa las cinco grandes dimensiones de la personalidad: apertura, conciencia, extroversión, amabilidad y
+            neuroticismo.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test6/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+        <article class="eval-card" id="test-7">
+          <div class="eval-icon">🧠</div>
+          <h3 class="eval-name">Chaside</h3>
+          <p class="eval-desc">
+           Evalúa tus intereses, responde cada pregunta con sinceridad y descubre en qué áreas profesionales tienes mayor afinidad.
+          </p>
+          <button class="btn-test" onclick="window.location.href='tests/Test7/index.html'">
+            <span>Comenzar Test</span>
+            <span class="arrow">→</span>
+          </button>
+        </article>
+
+        <div class="no-tests-message" id="no-tests-message">
+          <div class="no-tests-icon">📋</div>
+          <h2 class="no-tests-title">No tienes tests habilitados</h2>
+          <p class="no-tests-text">No tienes tests habilitados en este momento. Por favor contactá al administrador.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="./assets/js/main.js"></script>
+</body>
+
+</html>
