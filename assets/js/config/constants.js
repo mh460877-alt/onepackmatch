@@ -1,4 +1,4 @@
-export const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWPSFDbVB64C6cG3LR89GrJc3gg8M1VCuzE-Rcwmn_rrGuzjtCwPLycskCIFIeTsy1/exec';
+export const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw9ZQvvuYvCUZgjv7cv91PlPPqJLVDAEOJDxIKNMkFT-KqKc7rMDrkamqw5RL4mw68dw/exec';
 export const DB_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6kBo-HW69iQ6sUx0YbU_xR2qsufgVLOkNCnpPBYeb0A_dn3_u3yR4Q45iK8v9FbdC/exec';
 
 
