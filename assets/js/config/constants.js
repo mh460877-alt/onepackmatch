@@ -3,7 +3,7 @@ export const DB_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6
 
 
 export const URL_TEST1 = 'https://script.google.com/macros/s/AKfycbzc_th-toqUpAGh_NFTuvuSshFfg9ET4AHmwfDdtotVv4ewYvuJ1AvYeWe_s8VhnKU/exec';//STAI
-export const URL_TEST2 = 'https://script.google.com/macros/s/AKfycbz5ZUTuUZU0Rp3QD34UbAWb5t4oR6-8RU8BNvab1rSwc5OZaaYd5B5De0YRLUQtWtJ3AA/exec'; //BIG FIVE
+export const URL_TEST2 = 'https://script.google.com/macros/s/AKfycbxrElQZJU35o7QgthakSXQD7howIrEANQXjVtpK8qbnLdkGbgoTdcK5w_FyIq4e-Ize/exec'; //BIG FIVE
 export const URL_TEST3 = 'https://script.google.com/macros/s/AKfycbwJO2wZ0yqSbNV0Y5-ACWOza14M5uvPpeMFO_xzT2mi7woC8lhjQnU3ZfWA3G1QPcbq8Q/exec'; //DOMINO48
 export const URL_TEST4 = 'https://script.google.com/macros/s/AKfycbwND-K16ik6l7sXjWK_IBh2elOJigMnFwer8R637hTojHZdQRMvpYhFS9iLpl4Unoh3/exec'; //TOULOUSE
 export const URL_TEST5 = 'https://script.google.com/macros/s/AKfycbzwtkqV1qjIGDgOqTnU1AVzQNg-CWPZEBESBjecshCwMUFbC6wmx3AxmeLfRwmJALgq/exec';//ENEAGRAMA
