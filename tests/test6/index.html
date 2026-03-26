@@ -1,619 +1,915 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Test de Personalidad Big Five (IPIP-50) - Validado</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNLA Perfil Comercial - Escencial Consultora</title>
+  <link rel="icon" type="image/png" href="./img/favicon.png" sizes="32x32">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ======= TU CSS ORIGINAL (sin cambios) ======= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      min-height: 100vh;
+      padding: 24px;
+      background-image: url('./img/fondo-escencial.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      padding: 32px 48px;
+      position: relative;
+    }
+    .logo { display: none; }
+    .logo-results { display: none; }
+    h1 {
+      color: #020f27;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+    h2 {
+      color: #020f27;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: -0.3px;
+    }
+    .subtitle {
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .main-header .subtitle { color: rgba(255,255,255,0.95); margin-bottom: 0; font-size: 15px; }
+    .form-group { margin-bottom: 28px; }
+    label {
+      display: block;
+      color: #334155;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+      text-align: center;
+    }
+    input:focus {
+      outline: none;
+      border-color: #0b4a6e;
+      box-shadow: 0 0 0 4px rgba(11, 74, 110, 0.1);
+      transform: translateY(-2px);
+    }
+    input::placeholder { color: #94a3b8; }
+    .btn {
+      width: 100%;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn:hover::before { left: 100%; }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(11, 74, 110, 0.4);
+    }
+    .btn:active { transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn:disabled:hover { transform: none; box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3); }
+    .info-box {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      padding: 20px;
+      border-radius: 16px;
+      margin-top: 24px;
+      border-left: 4px solid #0b4a6e;
+      text-align: center;
+    }
+    .info-box p { color: #475569; font-size: 14px; line-height: 1.7; }
+    .progress-bar {
+      width: 100%; height: 10px;
+      background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0b4a6e 0%, #020f27 100%);
+      transition: width 0.4s ease;
+      border-radius: 10px;
+    }
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .question-box {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      padding: 32px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+    .question-text {
+      font-size: 20px;
+      color: #020f27;
+      margin-bottom: 24px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .option {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    .option:hover {
+      border-color: #0b4a6e;
+      transform: translateX(8px);
+      box-shadow: 0 4px 12px rgba(11, 74, 110, 0.15);
+    }
+    .option.selected {
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      color: white;
+      border-color: #020f27;
+      transform: scale(1.02);
+    }
+    .option:before {
+      content: '○';
+      font-size: 24px;
+      margin-right: 12px;
+      color: #cbd5e1;
+      transition: all 0.3s ease;
+    }
+    .option.selected:before { content: '●'; color: white; }
+    .hidden { display: none !important; }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../img/favicon.png" sizes="32x32" />
-    <link rel="shortcut icon" href="../../img/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="../../img/favicon.png" />
+    .success-message { text-align: center; padding: 40px 20px; }
+    .success-icon { font-size: 80px; margin-bottom: 24px; animation: scaleIn 0.5s ease-out; }
+    @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+    .success-message h2 { color: #0b4a6e; margin-bottom: 16px; }
+    .success-message p { color: #475569; font-size: 16px; line-height: 1.8; margin-bottom: 12px; }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    .result-header {
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 24px rgba(11, 74, 110, 0.2);
+    }
+    .result-header h2 { color: white; font-size: 28px; margin-bottom: 8px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #020f27;
+      margin: 32px 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #0b4a6e;
+    }
+    .result-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    .result-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border-color: #0b4a6e;
+    }
+    .result-card h3 {
+      color: #020f27;
+      font-size: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .result-card p { color: #475569; line-height: 1.7; margin-top: 12px; }
+    .score-container { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+    .score-value { font-size: 36px; font-weight: 700; color: #0b4a6e; }
+    .score-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-sobresaliente { background: #dcfce7; color: #166534; }
+    .badge-fortaleza { background: #dbeafe; color: #1e40af; }
+    .badge-medio { background: #fef3c7; color: #92400e; }
+    .badge-desarrollo { background: #fed7aa; color: #9a3412; }
+    .badge-bajo { background: #fee2e2; color: #991b1b; }
 
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
+    .chart-container {
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin: 32px 0;
+    }
+    .global-score { font-size: 56px; font-weight: 700; color: #0b4a6e; margin: 16px 0; }
+    .global-badge {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .synthesis-box {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 2px solid #0ea5e9;
+      border-radius: 20px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    .synthesis-box h3 { color: #0c4a6e; font-size: 24px; margin-bottom: 24px; text-align: center; }
+    .synthesis-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(14, 165, 233, 0.2); }
+    .synthesis-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .synthesis-item strong { display: block; color: #0c4a6e; font-size: 16px; margin-bottom: 8px; }
+    .synthesis-item p { color: #475569; line-height: 1.7; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-                sans-serif;
-            min-height: 100vh;
-
-            padding: clamp(12px, 3vw, 24px);
-            padding-left: max(clamp(12px, 3vw, 24px), env(safe-area-inset-left));
-            padding-right: max(clamp(12px, 3vw, 24px), env(safe-area-inset-right));
-            padding-top: max(clamp(12px, 3vw, 24px), env(safe-area-inset-top));
-            padding-bottom: max(clamp(12px, 3vw, 24px), env(safe-area-inset-bottom));
-
-            background-image: url("../../img/fondo-escencial.jpg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: min(900px, 100%);
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            padding: clamp(18px, 4vw, 48px);
-            position: relative;
-        }
-
-        h1 {
-            color: #020f27;
-            font-size: clamp(22px, 3.6vw, 32px);
-            font-weight: 700;
-            margin-bottom: 12px;
-            text-align: center;
-            letter-spacing: -0.5px;
-            word-break: break-word;
-        }
-
-        h2 {
-            color: #020f27;
-            font-size: clamp(18px, 3vw, 26px);
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-            letter-spacing: -0.3px;
-            word-break: break-word;
-        }
-
-        .subtitle {
-            color: #64748b;
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 14px;
-            font-weight: 600;
-            margin: 10px 5px;
-            max-width: 100%;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            padding: 20px;
-            border-radius: 16px;
-            margin: 28px 0;
-            border-left: 4px solid #0b4a6e;
-        }
-
-        .info-box h3 {
-            color: #020f27;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .info-box p,
-        .info-box ul {
-            color: #475569;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .info-box ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            color: #fff;
-            background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
-            box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-top: 20px;
-            touch-action: manipulation;
-        }
-
-        .btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(11, 74, 110, 0.35);
-        }
-
-        .btn:active:not(:disabled) {
-            transform: translateY(-1px);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 24px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0b4a6e 0%, #020f27 100%);
-            transition: width 0.4s ease;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(11, 74, 110, 0.3);
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 12px;
-            font-weight: 600;
-            flex-wrap: wrap;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .question-block {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            transition: all 0.25s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .question-block.answered {
-            border-color: #0b4a6e;
-            background: #f0f9ff;
-        }
-
-        .question-block:hover {
-            background: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-number {
-            color: #0b4a6e;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .reverse-indicator {
-            background: #dc2626;
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            margin-left: 0;
-            white-space: nowrap;
-        }
-
-        .question-text {
-            font-size: 17px;
-            color: #020f27;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 10px;
-            align-items: stretch;
-        }
-
-        .option {
-            min-width: 0;
-            text-align: center;
-        }
-
-        .option input[type="radio"] {
-            display: none;
-        }
-
-        .option label {
-            display: grid;
-            place-items: center;
-            text-align: center;
-            padding: 12px 8px;
-            background: #fff;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.15;
-            min-height: 44px;
-            user-select: none;
-            word-break: break-word;
-        }
-
-        .option input[type="radio"]:checked+label {
-            background: #0b4a6e;
-            color: #fff;
-            border-color: #0b4a6e;
-            transform: scale(1.03);
-        }
-
-        .option label:hover {
-            border-color: #0b4a6e;
-            background: #f0f9ff;
-        }
-
-        .confirmation-box {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            padding: 40px 30px;
-            border-radius: 16px;
-            margin: 30px 0;
-            text-align: center;
-            border: 2px solid #0b4a6e;
-        }
-
-        .confirmation-box h3 {
-            color: #020f27;
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
-
-        .confirmation-box p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #475569;
-        }
-
-        .confirmation-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .validation-message {
-            background: #fef3c7;
-            border: 2px solid #fbbf24;
-            color: #78350f;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .page-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .page-buttons .btn {
-            flex: 1 1 220px;
-            margin-top: 0;
-        }
-
-        .btn-back {
-            position: fixed;
-            top: max(12px, env(safe-area-inset-top));
-            left: max(12px, env(safe-area-inset-left));
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #020f27 !important;
-            border: 2px solid #020f27;
-            border-radius: 999px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            font-weight: 700;
-            z-index: 9999;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            transition: all 0.25s ease;
-            font-size: 14px;
-            backdrop-filter: blur(4px);
-            max-width: calc(100vw - 24px);
-            white-space: nowrap;
-        }
-
-        .btn-back:hover {
-            transform: translateY(-2px);
-            background: #020f27;
-            color: #fff !important;
-            box-shadow: 0 6px 15px rgba(2, 15, 39, 0.2);
-        }
-
-        .btn-back svg {
-            transition: transform 0.25s ease;
-            flex: 0 0 auto;
-        }
-
-        .btn-back:hover svg {
-            transform: translateX(-3px);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                background-attachment: scroll;
-            }
-
-            .question-block:hover {
-                transform: none;
-            }
-
-            .options {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 8px;
-            }
-
-            .option label {
-                font-size: 13px;
-                padding: 10px 6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .btn-back {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-
-            .options {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .option label {
-                min-height: 46px;
-            }
-
-            .progress-text {
-                font-size: 13px;
-            }
-        }
-
-        @media print {
-            body {
-                background: #fff;
-                padding: 0;
-            }
-
-            .container {
-                box-shadow: none;
-            }
-
-            .btn,
-            .btn-back {
-                display: none !important;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      body { padding: 16px; }
+      .container { padding: 24px; }
+      h1 { font-size: 26px; }
+      h2 { font-size: 22px; }
+      .question-text { font-size: 18px; }
+      .option { padding: 16px; }
+    }
+  </style>
 </head>
-
 <body>
-    <a href="../../usuarios.html" class="btn-back">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 18l-6-6 6-6" />
-        </svg>
-        Volver a Usuarios
-    </a>
 
-    <div class="container">
-        <!-- PANTALLA DE INTRODUCCIÓN -->
-        <div id="intro">
-            <h1>Test de Personalidad Big Five</h1>
-            <p class="subtitle">Versión IPIP-50 Validada Científicamente</p>
-            <div style="text-align: center;">
-                <span class="badge">✓ Confiabilidad: α = 0.80-0.85</span>
-                <span class="badge">🔀 Aleatorizado por Bloques</span>
+  <!-- Pantalla de Registro -->
+  <div id="registrationScreen" class="container" style="max-width:800px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background-color: white; border-radius: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+            <div>
+                <img src="./img/logo.png" alt="Logo" style="width: 250px; height: auto; display: block;" />
             </div>
-
-            <div class="info-box">
-                <h3>📋 Acerca de este Test</h3>
-                <p>
-                    Este test utiliza el <strong>IPIP-50</strong> (International Personality Item Pool), un inventario
-                    de
-                    personalidad validado científicamente y de dominio público. Ha sido utilizado en más de 1,000
-                    estudios
-                    publicados.
-                </p>
-                <p style="margin-top: 10px;"><strong>Tiempo estimado:</strong> 10-15 minutos</p>
-            </div>
-
-            <div class="info-box">
-                <h3>🎯 Las 5 Dimensiones que Evalúa</h3>
-                <ul>
-                    <li><strong>Apertura a la Experiencia:</strong> Creatividad, curiosidad, imaginación</li>
-                    <li><strong>Responsabilidad:</strong> Organización, disciplina, fiabilidad</li>
-                    <li><strong>Extraversión:</strong> Sociabilidad, energía, asertividad</li>
-                    <li><strong>Amabilidad:</strong> Empatía, cooperación, altruismo</li>
-                    <li><strong>Neuroticismo:</strong> Tendencia a experimentar emociones negativas, sensibilidad al
-                        estrés</li>
-                </ul>
-            </div>
-
-            <div class="info-box">
-                <h3>📊 Metodología Validada</h3>
-                <p>• 50 preguntas (10 por dimensión)</p>
-                <p>• 50% de ítems invertidos para evitar sesgos de respuesta</p>
-                <p>• <strong>🔀 Aleatorización por bloques:</strong> Las preguntas aparecen en orden diferente cada vez
-                </p>
-                <p>• Escala Likert de 5 puntos</p>
-                <p>• Resultados con percentiles poblacionales</p>
-                <p>• Visualización con gráficos comparativos</p>
-            </div>
-
-            <div class="info-box">
-                <h3>⚠️ Importante</h3>
-                <p>Responde con honestidad según cómo realmente eres, no cómo te gustaría ser.</p>
-            </div>
-
-            <div class="info-box">
-                <h3>👤 Tus Datos</h3>
-                <p style="margin-bottom: 15px;">Para enviarte tus resultados, necesitamos la siguiente información:</p>
-
-                <div style="margin-bottom: 15px; display: flex; gap: 12px; flex-wrap: wrap;">
-                    <div style="flex: 1 1 140px; min-width: 0;">
-                        <label for="userFirstName"
-                            style="display:block; margin-bottom:5px; font-weight:600; color:#020f27;">Nombre *</label>
-                        <input type="text" id="userFirstName" placeholder="Ej: Juan" style="
-              width:100%;
-              padding:12px;
-              border:2px solid #e2e8f0;
-              border-radius:8px;
-              font-size:15px;
-              font-family:inherit;">
-                    </div>
-                    <div style="flex: 1 1 180px; min-width: 0;">
-                        <label for="userLastName"
-                            style="display:block; margin-bottom:5px; font-weight:600; color:#020f27;">Apellidos
-                            *</label>
-                        <input type="text" id="userLastName" placeholder="Ej: Pérez" style="
-              width:100%;
-              padding:12px;
-              border:2px solid #e2e8f0;
-              border-radius:8px;
-              font-size:15px;
-              font-family:inherit;">
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 10px;">
-                    <label for="userEmail"
-                        style="display:block; margin-bottom:5px; font-weight:600; color:#020f27;">Email *</label>
-                    <input type="email" id="userEmail" placeholder="Ej: juan@email.com" style="
-            width:100%;
-            padding:12px;
-            border:2px solid #e2e8f0;
-            border-radius:8px;
-            font-size:15px;
-            font-family:inherit;">
-                </div>
-
-                <div id="formError" class="validation-message hidden" style="margin-top: 15px;">
-                    ⚠️ Por favor completa todos los campos requeridos.
-                </div>
-            </div>
-
-            <button class="btn" onclick="startTest()">🚀 Comenzar Test</button>
-        </div>
-
-        <!-- PANTALLA DEL TEST -->
-        <div id="test" class="hidden">
-            <h2>Test de Personalidad Big Five</h2>
-
-            <div class="progress-text">
-                <span>Pregunta <span id="currentQ">1</span> de 50</span>
-                <span>Página <span id="currentPage">1</span> de 5</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
-            </div>
-
-            <div class="validation-message hidden" id="validationMessage">
-                ⚠️ Por favor, responde todas las preguntas de esta página antes de continuar.
-            </div>
-
-            <form id="testForm">
-                <!-- Las preguntas se generarán dinámicamente aquí -->
-            </form>
-
-            <div class="page-buttons">
-                <button type="button" class="btn hidden" id="prevBtn" onclick="previousPage()">⬅️ Anterior</button>
-                <button type="button" class="btn" id="nextBtn" onclick="nextPage()">Siguiente ➡️</button>
-                <button type="button" class="btn hidden" id="submitBtn" onclick="submitTest()">📩 Enviar
-                    Respuestas</button>
+            <div style="text-align: right;">
+                <h1 style="margin: 0; font-size: 24px; color: #1a2a3a; line-height: 1.2; font-family: sans-serif;">
+                    DNLA - Perfil Comercial
+                </h1>
             </div>
         </div>
+    <p class="subtitle">Evaluación de Competencias de Ventas</p>
 
-        <!-- PANTALLA DE CONFIRMACIÓN -->
-        <div id="results" class="hidden">
-            <!-- <div style="text-align: center; margin-bottom: 30px;">
-        <img src="../../img/one-logocolor.png" alt="one-logocolor" style="max-width: 200px; height: auto;" />
-      </div> -->
-            <h1>Big Five</h1>
-            <p class="subtitle">Test validado</p>
-
-            <div class="confirmation-box">
-                <span class="confirmation-icon" id="confirmIcon">📩</span>
-                <h3 id="confirmTitle">Enviando respuestas…</h3>
-
-                <p id="results-message">Estamos registrando tus respuestas.</p>
-
-                <div id="confirmActions" class="hidden" style="margin-top:16px;">
-                    <button class="btn" type="button" onclick="retrySend()">🔁 Reintentar envío</button>
-                    <button class="btn" type="button" onclick="restartTest()" style="margin-top:12px;">
-                        🧾 Volver al inicio
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+      <label for="userName">Nombre</label>
+      <input type="text" id="userName" placeholder="Ingresa tu nombre" autocomplete="given-name">
     </div>
 
-    <script type="module" src="./script.js"></script>
-</body>
+    <div class="form-group">
+      <label for="userLastName">Apellido</label>
+      <input type="text" id="userLastName" placeholder="Ingresa tu apellido" autocomplete="family-name">
+    </div>
 
+    <div class="form-group">
+      <label for="userEmail">Email</label>
+      <input type="email" id="userEmail" placeholder="ejemplo@email.com" autocomplete="email">
+    </div>
+
+    <button class="btn" onclick="startForm()">Comenzar Evaluación</button>
+
+    <div class="info-box">
+      <p><strong>📋 Instrucciones:</strong><br>
+        Responde con honestidad según tu comportamiento habitual.<br>
+        Tiempo estimado: 8-10 minutos | 30 preguntas</p>
+    </div>
+  </div>
+
+  <!-- Pantalla del Test -->
+  <div id="testScreen" class="container hidden">
+    <img src="./img/logo.png" alt="Logo" style="width: 150px; height: auto; display: block; margin-bottom: 12px;">
+    <h2 id="participantName">📊 Participante</h2>
+
+    <div class="progress-text">
+      <span id="progressText">Pregunta 1 de 30</span>
+      <span id="progressPercent">3%</span>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:3%;"></div>
+    </div>
+
+    <div class="question-box">
+      <div class="question-text" id="questionText">Texto de la pregunta</div>
+      <div id="optionsContainer"></div>
+    </div>
+
+    <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+  </div>
+
+  <!-- Pantalla de Confirmación -->
+  <div id="successScreen" class="container hidden" style="max-width:650px; padding-top:32px; padding-bottom:32px;">
+    <img src="./img/logo.png" alt="Logo" style="width: 150px; height: auto; display: block; margin-bottom: 12px;">
+
+    <div class="success-message">
+      <div class="success-icon">✅</div>
+      <h2>¡Evaluación Completada!</h2>
+      <p>Tus respuestas han sido enviadas correctamente.</p>
+    </div>
+    <div id="finalDynamicArea" style="margin-top:16px;"></div>
+    <div class="info-box" style="margin-top:32px;">
+      <p><strong>Escencial Consultora</strong><br>Catamarca 873 - San Miguel de Tucumán<br>Tel: +54 9 3816 22-1565</p>
+    </div>
+  </div>
+
+  <!-- Pantalla de Resultados (opcional) -->
+  <div id="resultsScreen" class="container hidden">
+    <img src="./img/logo.png" alt="Logo" style="width: 150px; height: auto; display: block; margin-bottom: 12px;">
+
+    <div id="globalInterpretation" class="result-card" style="text-align:center; margin-bottom:32px;"></div>
+
+    <div class="chart-container">
+      <canvas id="radarChart"></canvas>
+    </div>
+
+    <div id="dimensionResults"></div>
+
+    <button class="btn" onclick="restartForm()" style="margin-top:32px;">Realizar Nueva Evaluación</button>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- SCRIPT LISTO: ENVÍO TIPO IPPR USANDO URL_TEST10         -->
+  <!-- RESPETA respuestasFormato: "1:5,2:4,3:3,..."            -->
+  <!-- ===================================================== -->
+  <script type="module">
+    import { URL_TEST10 } from '../../js/config/constants.js';
+    import { incrementCountAndRenderRetry,getStoredEmail } from '../../js/helpers/finalActions.js';
+
+    // Igual que IPPR
+    const WEB_APP_URL = URL_TEST10;
+    const NOMBRE_HOJA = "Respuestas";
+    const TOTAL = 30;
+
+    // Estado
+    let currentQuestion = 0;
+    let answers = {};
+    let userName = '';
+    let userLastName = '';
+    let userEmail = '';
+    let radarChart = null;
+
+    // Timer (para guardar tiempo como en IPPR)
+    let timeStart = 0;
+    let timeEnd = 0;
+
+    // =====================================================================
+    // PREGUNTAS (30)
+    // =====================================================================
+    const questions = [
+      { id: 1, dimension: 'Responsabilidad Personal', text: 'Cumplo mis compromisos aunque nadie me lo recuerde.' },
+      { id: 2, dimension: 'Responsabilidad Personal', text: 'Si algo sale mal, analizo qué pude haber hecho diferente.' },
+      { id: 3, dimension: 'Responsabilidad Personal', text: 'Asumo los errores en lugar de buscar culpables.' },
+      { id: 4, dimension: 'Responsabilidad Personal', text: 'Mantengo mi palabra incluso ante dificultades.' },
+      { id: 5, dimension: 'Responsabilidad Personal', text: 'Me esfuerzo por cumplir con los estándares que exijo a otros.' },
+
+      { id: 6, dimension: 'Compromiso y Motivación', text: 'Mantengo la energía y el interés incluso en tareas repetitivas.' },
+      { id: 7, dimension: 'Compromiso y Motivación', text: 'Busco superar las metas establecidas.' },
+      { id: 8, dimension: 'Compromiso y Motivación', text: 'Persevero hasta terminar lo que comienzo.' },
+      { id: 9, dimension: 'Compromiso y Motivación', text: 'Me motiva ver los resultados de mi trabajo.' },
+      { id: 10, dimension: 'Compromiso y Motivación', text: 'En momentos difíciles, encuentro razones para seguir adelante.' },
+
+      { id: 11, dimension: 'Autoestima y Confianza', text: 'Confío en mis decisiones, incluso si otros dudan.' },
+      { id: 12, dimension: 'Autoestima y Confianza', text: 'Creo en mi capacidad para resolver problemas.' },
+      { id: 13, dimension: 'Autoestima y Confianza', text: 'Afronto los desafíos sin temor al error.' },
+      { id: 14, dimension: 'Autoestima y Confianza', text: 'Suelo mantener una actitud positiva frente a los obstáculos.' },
+      { id: 15, dimension: 'Autoestima y Confianza', text: 'Me considero competente y capaz en mi función laboral.' },
+
+      { id: 16, dimension: 'Empatía y Relaciones', text: 'Escucho atentamente las necesidades de los demás.' },
+      { id: 17, dimension: 'Empatía y Relaciones', text: 'Procuro entender el punto de vista ajeno antes de opinar.' },
+      { id: 18, dimension: 'Empatía y Relaciones', text: 'Mantengo relaciones cordiales incluso bajo presión.' },
+      { id: 19, dimension: 'Empatía y Relaciones', text: 'Suelo percibir cuando alguien necesita apoyo o contención.' },
+      { id: 20, dimension: 'Empatía y Relaciones', text: 'Adapto mi forma de comunicarme según la persona o situación.' },
+
+      { id: 21, dimension: 'Adaptabilidad y Flexibilidad', text: 'Me ajusto con rapidez a los cambios en el entorno laboral.' },
+      { id: 22, dimension: 'Adaptabilidad y Flexibilidad', text: 'Busco soluciones nuevas ante imprevistos.' },
+      { id: 23, dimension: 'Adaptabilidad y Flexibilidad', text: 'Me adapto bien a distintos estilos de liderazgo o trabajo.' },
+      { id: 24, dimension: 'Adaptabilidad y Flexibilidad', text: 'Acepto los cambios como oportunidades para aprender.' },
+      { id: 25, dimension: 'Adaptabilidad y Flexibilidad', text: 'Puedo mantener la calma cuando algo no sale como esperaba.' },
+
+      { id: 26, dimension: 'Organización y Planificación', text: 'Me gusta planificar antes de actuar.' },
+      { id: 27, dimension: 'Organización y Planificación', text: 'Cumplo los plazos sin dificultad.' },
+      { id: 28, dimension: 'Organización y Planificación', text: 'Mantengo orden en mis tareas y materiales.' },
+      { id: 29, dimension: 'Organización y Planificación', text: 'Establezco prioridades claras cuando tengo varias responsabilidades.' },
+      { id: 30, dimension: 'Organización y Planificación', text: 'Reviso mis avances para asegurarme de cumplir mis objetivos.' }
+    ];
+
+    const options = [
+      { text: '🔵 Siempre', value: 5 },
+      { text: '🟢 Frecuentemente', value: 4 },
+      { text: '🟡 A veces', value: 3 },
+      { text: '🟠 Rara vez', value: 2 },
+      { text: '🔴 Nunca', value: 1 }
+    ];
+
+    // =====================================================================
+    // HELPERS
+    // =====================================================================
+    const $ = (id) => document.getElementById(id);
+
+    function formatTimeUsed(start, end) {
+      if (!start || !end) return "0m 0s";
+      const total = Math.floor((end - start) / 1000);
+      return `${Math.floor(total / 60)}m ${total % 60}s`;
+    }
+
+    // ✅ RESPETA TU "respuestasFormato": "1:5,2:4,3:3,..."
+    function buildRespuestasFormato() {
+      const arr = [];
+      for (let i = 1; i <= TOTAL; i++) {
+        // si faltara alguna (no debería), mandamos vacío o 0
+        const v = answers[i] ?? "";
+        arr.push(`${i}:${v}`);
+      }
+      return arr.join(',');
+    }
+
+    // =====================================================================
+    // FLUJO
+    // =====================================================================
+    window.startForm = function startForm() {
+      userName = $('userName').value.trim();
+      userLastName = $('userLastName').value.trim();
+      userEmail = $('userEmail').value.trim();
+
+      if (!userName || !userLastName || !userEmail) {
+        alert('Por favor completa todos los campos');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(userEmail)) {
+        alert('Por favor ingresa un email válido');
+        return;
+      }
+
+      timeStart = Date.now();
+
+      $('registrationScreen').classList.add('hidden');
+      $('testScreen').classList.remove('hidden');
+      $('participantName').textContent = '📊 ' + userName + ' ' + userLastName;
+
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const question = questions[currentQuestion];
+      $('questionText').textContent = question.text;
+
+      const optionsContainer = $('optionsContainer');
+      optionsContainer.innerHTML = '';
+
+      options.forEach(option => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'option';
+        optionDiv.textContent = option.text;
+        optionDiv.onclick = () => selectOption(option.value, optionDiv);
+        optionsContainer.appendChild(optionDiv);
+      });
+
+      updateProgress();
+    }
+
+    function selectOption(value, element) {
+      document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+
+      answers[questions[currentQuestion].id] = value;
+      $('nextBtn').disabled = false;
+    }
+
+    window.nextQuestion = function nextQuestion() {
+      const qid = questions[currentQuestion].id;
+      if (!answers[qid]) {
+        alert('Por favor selecciona una opción');
+        return;
+      }
+
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+        $('nextBtn').disabled = true;
+      } else {
+        finishAndSend();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      $('progressFill').style.width = progress + '%';
+      $('progressText').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+      $('progressPercent').textContent = Math.round(progress) + '%';
+    }
+
+    // =====================================================================
+    // ENVÍO (IGUAL IPPR) + RESPETA respuestasFormato
+    // =====================================================================
+    async function finishAndSend() {
+      $('testScreen').classList.add('hidden');
+
+      timeEnd = Date.now();
+
+      const tiempoUsado = formatTimeUsed(timeStart, timeEnd);
+      const respuestasFormato = buildRespuestasFormato();
+
+      // ✅ Mantengo tu formato de respuestas, pero le agrego tiempo al estilo IPPR
+      //    (sin romper el "respuestasFormato")
+      const respuestasFinal = `{${tiempoUsado} - ${respuestasFormato}}`;
+
+      const now = new Date();
+      const fechaHora = now.toLocaleString('es-AR', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+      });
+
+      const filaOrdenada = [
+        fechaHora,
+        userName || "SinNombre",
+        userLastName || "SinApellido",
+        getStoredEmail() || "SinEmail",
+        respuestasFinal
+      ];
+
+      const payload = {
+        nombreHoja: NOMBRE_HOJA,
+        fila: filaOrdenada
+      };
+
+      try {
+        await fetch(WEB_APP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        $('successScreen').classList.remove('hidden');
+        incrementCountAndRenderRetry();
+      } catch (error) {
+        console.error('Error al enviar datos:', error);
+        alert('Hubo un error al enviar tus respuestas. Por favor, contacta con Escencial Consultora.');
+      }
+    }
+
+    // =====================================================================
+    // (LO DEMÁS) RESULTADOS OPCIONALES: tu código original, sin tocar
+    // =====================================================================
+
+    function calculateResults() {
+      const dimensionScores = {
+        'Responsabilidad Personal': 0,
+        'Compromiso y Motivación': 0,
+        'Autoestima y Confianza': 0,
+        'Empatía y Relaciones': 0,
+        'Adaptabilidad y Flexibilidad': 0,
+        'Organización y Planificación': 0
+      };
+
+      const dimensionCounts = {
+        'Responsabilidad Personal': 0,
+        'Compromiso y Motivación': 0,
+        'Autoestima y Confianza': 0,
+        'Empatía y Relaciones': 0,
+        'Adaptabilidad y Flexibilidad': 0,
+        'Organización y Planificación': 0
+      };
+
+      questions.forEach(q => {
+        const answer = answers[q.id];
+        dimensionScores[q.dimension] += answer;
+        dimensionCounts[q.dimension]++;
+      });
+
+      Object.keys(dimensionScores).forEach(dim => {
+        dimensionScores[dim] = dimensionScores[dim] / dimensionCounts[dim];
+      });
+
+      const globalAverage = Object.values(dimensionScores).reduce((a, b) => a + b, 0) / Object.keys(dimensionScores).length;
+      return { dimensionScores, globalAverage };
+    }
+
+    function showResults() {
+      const { dimensionScores, globalAverage } = calculateResults();
+
+      $('testScreen').classList.add('hidden');
+      $('resultsScreen').classList.remove('hidden');
+
+      const header = document.createElement('div');
+      header.className = 'result-header';
+      header.innerHTML = `
+        <h2>${userName} ${userLastName}</h2>
+        <p class="subtitle" style="color: rgba(255,255,255,0.95); margin-top:8px;">
+          Evaluación completada el ${new Date().toLocaleDateString('es-AR')}
+        </p>
+      `;
+      $('resultsScreen').insertBefore(header, $('resultsScreen').firstChild);
+
+      displayGlobalInterpretation(globalAverage);
+      createRadarChart(dimensionScores);
+      displayDimensionResults(dimensionScores);
+      displayProfileSynthesis(dimensionScores, globalAverage);
+    }
+
+    function createRadarChart(scores) {
+      const ctx = document.getElementById('radarChart').getContext('2d');
+      if (radarChart) radarChart.destroy();
+
+      radarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: Object.keys(scores),
+          datasets: [{
+            label: 'Puntuación',
+            data: Object.values(scores),
+            backgroundColor: 'rgba(11, 74, 110, 0.2)',
+            borderColor: '#0b4a6e',
+            borderWidth: 3,
+            pointBackgroundColor: '#020f27',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#020f27',
+            pointRadius: 6,
+            pointHoverRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+            r: {
+              beginAtZero: true,
+              min: 0,
+              max: 5,
+              ticks: {
+                stepSize: 1,
+                backdropColor: 'transparent',
+                color: '#64748b',
+                font: { size: 11 }
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#020f27',
+              titleColor: '#fff',
+              bodyColor: '#fff',
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                label: (context) => `Puntuación: ${context.parsed.r.toFixed(2)}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function displayDimensionResults(scores) {
+      const container = document.getElementById('dimensionResults');
+      container.innerHTML = '<div class="section-title" style="margin-top:32px;">Análisis Detallado por Competencia</div>';
+
+      Object.keys(scores).forEach(dim => {
+        const score = scores[dim];
+        const analysis = getDetailedAnalysis(dim, score);
+
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <h3><span>${dim}</span></h3>
+          <div class="score-container">
+            <div class="score-value">${score.toFixed(2)}</div>
+            <div class="score-badge ${analysis.badgeClass}">${analysis.label}</div>
+          </div>
+          <p>${analysis.description}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function getDetailedAnalysis(dimension, score) {
+      let label, badgeClass, description;
+
+      const descriptors = {
+        'Responsabilidad Personal': {
+          sobresaliente: 'Demuestra excelente confiabilidad, asume compromisos con madurez y autocrítica constructiva.',
+          fortaleza: 'Cumple sus obligaciones de manera consistente y reconoce sus responsabilidades.',
+          medio: 'Cumple lo básico pero puede mejorar en la anticipación y seguimiento de compromisos.',
+          desarrollo: 'Requiere reforzar hábitos de cumplimiento y análisis de resultados propios.',
+          bajo: 'Necesita desarrollar sentido de responsabilidad y compromiso con sus tareas.'
+        },
+        'Compromiso y Motivación': {
+          sobresaliente: 'Mantiene alta energía, busca superar expectativas y persevera incluso en tareas difíciles.',
+          fortaleza: 'Demuestra motivación consistente y completa lo que inicia con determinación.',
+          medio: 'Muestra interés básico pero puede mejorar en persistencia y búsqueda de excelencia.',
+          desarrollo: 'Requiere fortalecer la motivación intrínseca y la capacidad de mantenerse enfocado.',
+          bajo: 'Presenta dificultades para mantener el interés y completar tareas con energía.'
+        },
+        'Autoestima y Confianza': {
+          sobresaliente: 'Confía plenamente en sus capacidades, afronta desafíos con seguridad y mantiene actitud positiva.',
+          fortaleza: 'Demuestra confianza en su desempeño y capacidad para resolver problemas.',
+          medio: 'Posee confianza básica pero puede fortalecerla ante situaciones complejas o críticas.',
+          desarrollo: 'Requiere trabajar en la seguridad personal y en la gestión del miedo al error.',
+          bajo: 'Necesita desarrollar confianza en sí mismo y en su capacidad profesional.'
+        },
+        'Empatía y Relaciones': {
+          sobresaliente: 'Escucha activamente, comprende perspectivas ajenas y mantiene relaciones efectivas bajo presión.',
+          fortaleza: 'Establece buenas relaciones interpersonales y adapta su comunicación según el contexto.',
+          medio: 'Se relaciona adecuadamente pero puede mejorar en comprensión de necesidades ajenas.',
+          desarrollo: 'Requiere desarrollar habilidades de escucha activa y gestión de relaciones.',
+          bajo: 'Presenta dificultades para conectar con otros y comprender perspectivas diferentes.'
+        },
+        'Adaptabilidad y Flexibilidad': {
+          sobresaliente: 'Se adapta rápidamente a cambios, busca soluciones creativas y mantiene calma ante imprevistos.',
+          fortaleza: 'Acepta cambios con apertura y ajusta su enfoque según las necesidades del entorno.',
+          medio: 'Se adapta a cambios básicos pero puede mejorar en velocidad y creatividad de respuesta.',
+          desarrollo: 'Requiere fortalecer la gestión del cambio y la búsqueda de alternativas.',
+          bajo: 'Presenta resistencia al cambio y dificultades para ajustarse a nuevas situaciones.'
+        },
+        'Organización y Planificación': {
+          sobresaliente: 'Planifica eficazmente, cumple plazos, mantiene orden y revisa constantemente su progreso.',
+          fortaleza: 'Demuestra buenas habilidades de organización y gestión del tiempo.',
+          medio: 'Organiza lo básico pero puede mejorar en planificación anticipada y seguimiento.',
+          desarrollo: 'Requiere desarrollar hábitos de planificación y gestión de prioridades.',
+          bajo: 'Presenta dificultades para organizarse, planificar y cumplir con plazos.'
+        }
+      };
+
+      if (score >= 4.6) {
+        label = 'Sobresaliente';
+        badgeClass = 'badge-sobresaliente';
+        description = descriptors[dimension].sobresaliente;
+      } else if (score >= 3.8) {
+        label = 'Fortaleza';
+        badgeClass = 'badge-fortaleza';
+        description = descriptors[dimension].fortaleza;
+      } else if (score >= 3.0) {
+        label = 'Medio';
+        badgeClass = 'badge-medio';
+        description = descriptors[dimension].medio;
+      } else if (score >= 2.0) {
+        label = 'En Desarrollo';
+        badgeClass = 'badge-desarrollo';
+        description = descriptors[dimension].desarrollo;
+      } else {
+        label = 'Bajo';
+        badgeClass = 'badge-bajo';
+        description = descriptors[dimension].bajo;
+      }
+
+      return { label, badgeClass, description };
+    }
+
+    function displayGlobalInterpretation(globalAverage) {
+      const container = document.getElementById('globalInterpretation');
+
+      let interpretation, badgeClass, recommendations;
+
+      if (globalAverage >= 4.6) {
+        interpretation = 'Perfil Sobresaliente';
+        badgeClass = 'badge-sobresaliente';
+        recommendations = 'Demuestra alto potencial en todas las competencias evaluadas. Considere roles de liderazgo o mentoring.';
+      } else if (globalAverage >= 3.8) {
+        interpretation = 'Perfil con Fortalezas';
+        badgeClass = 'badge-fortaleza';
+        recommendations = 'Posee competencias consolidadas. Enfoque en potenciar áreas específicas para desarrollo profesional.';
+      } else if (globalAverage >= 3.0) {
+        interpretation = 'Perfil Medio';
+        badgeClass = 'badge-medio';
+        recommendations = 'Nivel adecuado con oportunidades de mejora. Se recomienda capacitación específica en áreas de desarrollo.';
+      } else if (globalAverage >= 2.0) {
+        interpretation = 'Perfil en Desarrollo';
+        badgeClass = 'badge-desarrollo';
+        recommendations = 'Requiere atención y desarrollo en varias competencias. Plan de mejora recomendado.';
+      } else {
+        interpretation = 'Perfil Bajo';
+        badgeClass = 'badge-bajo';
+        recommendations = 'Necesita desarrollo significativo. Se sugiere acompañamiento cercano y plan de capacitación integral.';
+      }
+
+      container.innerHTML = `
+        <h3>Evaluación Global</h3>
+        <div class="global-score">${globalAverage.toFixed(2)}</div>
+        <div class="global-badge ${badgeClass}">${interpretation}</div>
+        <p style="margin-top:16px;">${recommendations}</p>
+      `;
+    }
+
+    function displayProfileSynthesis(scores, globalAverage) {
+      const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const strengths = sortedScores.slice(0, 2);
+      const improvements = sortedScores.slice(-2);
+
+      const synthesisHTML = `
+        <div class="synthesis-box">
+          <h3>Síntesis del Perfil</h3>
+
+          <div class="synthesis-item">
+            <strong>💪 Principales Fortalezas</strong>
+            <p>${strengths.map(s => `${s[0]} (${s[1].toFixed(2)})`).join(' y ')}</p>
+          </div>
+
+          <div class="synthesis-item">
+            <strong>📈 Áreas de Mejora</strong>
+            <p>${improvements.map(s => `${s[0]} (${s[1].toFixed(2)})`).join(' y ')}</p>
+          </div>
+
+          <div class="synthesis-item">
+            <strong>🎯 Recomendaciones</strong>
+            <p>Mantener y potenciar las fortalezas identificadas mientras se trabaja en el desarrollo de las áreas de mejora mediante capacitación específica y práctica constante.</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('globalInterpretation').insertAdjacentHTML('afterend', synthesisHTML);
+    }
+
+    window.restartForm = function restartForm() {
+      currentQuestion = 0;
+      answers = {};
+      userName = '';
+      userLastName = '';
+      userEmail = '';
+      timeStart = 0;
+      timeEnd = 0;
+
+      const header = document.querySelector('.result-header');
+      if (header) header.remove();
+
+      const sectionTitles = document.querySelectorAll('.section-title');
+      sectionTitles.forEach(title => title.remove());
+
+      const synthesis = document.querySelector('.synthesis-box');
+      if (synthesis) synthesis.remove();
+
+      if (radarChart) radarChart.destroy();
+
+      document.getElementById('resultsScreen').classList.add('hidden');
+      document.getElementById('successScreen').classList.add('hidden');
+      document.getElementById('registrationScreen').classList.remove('hidden');
+      document.getElementById('userName').value = '';
+      document.getElementById('userLastName').value = '';
+      document.getElementById('userEmail').value = '';
+    }
+  </script>
+</body>
 </html>

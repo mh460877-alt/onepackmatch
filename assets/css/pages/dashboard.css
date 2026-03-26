@@ -53,9 +53,10 @@ body[data-page="dashboard"] .login-logo {
   width: 80px;
   height: 80px;
   border-radius: 999px;
-  background-image: url('../../../img/one-iconocolor.png');
-  background-size: cover;
+  background-image: url('../../../img/logo.png');
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 0 0 0 1px rgba(198, 201, 215, .18), 0 0 40px rgba(107, 225, 227, .18);
   animation: logoPulse 4.5s ease-in-out infinite;
   margin: 0 auto 1.5rem;
@@ -251,9 +252,10 @@ body[data-page="dashboard"] .brand-logo {
   width: 45px;
   height: 45px;
   border-radius: 999px;
-  background-image: url('../../../img/one-iconocolor.png');
-  background-size: cover;
+  background-image: url('../../../img/logo.png');
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 0 0 0 1px rgba(198, 201, 215, .18), 0 0 40px rgba(107, 225, 227, .18);
   animation: logoPulse 4.5s ease-in-out infinite;
   position: relative;

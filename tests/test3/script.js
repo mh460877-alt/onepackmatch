@@ -1,309 +1,556 @@
-import { URL_TEST3 } from "../../assets/js/config/constants.js";
+import { URL_TEST5 } from "../../assets/js/config/constants.js";
 
-// ========== DATOS: 108 ÍTEMS ==========
-const ITEMS_IPP = [
-  { id: 1, text: "Investigar las causas de una enfermedad", campo: "C" },
-  { id: 2, text: "Realizar experimentos en un laboratorio", campo: "C" },
-  { id: 3, text: "Biólogo/a o Químico/a", campo: "C" },
-  { id: 4, text: "Analizar datos de investigaciones científicas", campo: "C" },
-  { id: 5, text: "Investigador/a científico/a", campo: "C" },
-  { id: 6, text: "Estudiar el funcionamiento del cuerpo humano", campo: "C" },
+(function guard() {
+  const logged = localStorage.getItem('sessionLoggedIn') === '1';
+  // if (!logged) {
+  //   window.location.href = '../../evaluaciones.html';
+  // }
+})();
 
-  { id: 7, text: "Reparar aparatos electrónicos o mecánicos", campo: "T" },
-  { id: 8, text: "Diseñar planos técnicos", campo: "T" },
-  { id: 9, text: "Ingeniero/a mecánico/a o industrial", campo: "T" },
-  { id: 10, text: "Manejar herramientas y maquinaria", campo: "T" },
-  { id: 11, text: "Técnico/a electrónico/a", campo: "T" },
-  { id: 12, text: "Supervisar procesos de fabricación", campo: "T" },
+// ========================
+// CONFIGURACIÓN
+// ========================
+const TOTAL_ITEMS = 40;
+const MAX_TIME_SECONDS = 25 * 60; // 25 minutos
 
-  { id: 13, text: "Atender pacientes enfermos", campo: "S" },
-  { id: 14, text: "Realizar primeros auxilios y curaciones", campo: "S" },
-  { id: 15, text: "Médico/a o Enfermero/a", campo: "S" },
-  { id: 16, text: "Asistir en intervenciones quirúrgicas", campo: "S" },
-  { id: 17, text: "Fisioterapeuta o Nutricionista", campo: "S" },
-  { id: 18, text: "Trabajar en urgencias hospitalarias", campo: "S" },
+// ✅ Usar constante centralizada
+const SAVE_RESULTS_URL = URL_TEST5;
 
-  { id: 19, text: "Investigar problemas sociales", campo: "CS" },
-  { id: 20, text: "Estudiar el comportamiento de grupos humanos", campo: "CS" },
-  { id: 21, text: "Psicólogo/a o Sociólogo/a", campo: "CS" },
-  { id: 22, text: "Realizar encuestas y estudios de opinión", campo: "CS" },
-  { id: 23, text: "Antropólogo/a o Historiador/a", campo: "CS" },
-  { id: 24, text: "Analizar tendencias económicas y sociales", campo: "CS" },
+// ========================
+// ÍTEMS
+// ========================
+const ITEMS = [
+  // ----- BLOQUE A: 1–10 (básico) -----
+  { sequence: [[0, 0], [1, 1], [2, 2]], answer: [3, 3], options: [[3, 3], [3, 2], [2, 3], [4, 4], [1, 3], [0, 2]] },
+  { sequence: [[1, 2], [2, 3], [3, 4]], answer: [4, 5], options: [[4, 5], [5, 4], [3, 5], [5, 6], [4, 4], [2, 4]] },
+  { sequence: [[6, 6], [5, 5], [4, 4]], answer: [3, 3], options: [[3, 3], [2, 2], [4, 3], [3, 4], [2, 3], [6, 5]] },
+  { sequence: [[0, 1], [1, 2], [2, 3]], answer: [3, 4], options: [[3, 4], [4, 5], [4, 3], [2, 4], [1, 3], [3, 3]] },
+  { sequence: [[0, 6], [1, 5], [2, 4]], answer: [3, 3], options: [[3, 3], [4, 2], [5, 1], [2, 3], [3, 4], [0, 3]] },
+  { sequence: [[0, 0], [1, 0], [2, 0]], answer: [3, 0], options: [[3, 0], [4, 0], [3, 1], [2, 1], [0, 2], [1, 2]] },
+  { sequence: [[6, 0], [5, 1], [4, 2]], answer: [3, 3], options: [[3, 3], [2, 4], [3, 2], [4, 3], [5, 2], [1, 3]] },
+  { sequence: [[0, 3], [1, 4], [2, 5]], answer: [3, 6], options: [[3, 6], [4, 0], [2, 6], [4, 5], [1, 5], [0, 4]] },
+  { sequence: [[1, 3], [2, 4], [3, 5]], answer: [4, 6], options: [[4, 6], [5, 0], [3, 6], [5, 4], [4, 5], [2, 3]] },
+  { sequence: [[0, 1], [0, 2], [1, 2]], answer: [1, 3], options: [[1, 3], [2, 3], [0, 3], [2, 4], [1, 4], [3, 3]] },
 
-  { id: 25, text: "Escribir cuentos, novelas o artículos", campo: "L" },
-  { id: 26, text: "Corregir textos y revisar ortografía", campo: "L" },
-  { id: 27, text: "Escritor/a o Periodista", campo: "L" },
-  { id: 28, text: "Traducir textos de otros idiomas", campo: "L" },
-  { id: 29, text: "Editor/a o Guionista", campo: "L" },
-  { id: 30, text: "Redactar discursos o contenido web", campo: "L" },
+  // ----- BLOQUE B: 11–25 (medio) -----
+  { sequence: [[0, 0], [0, 1], [1, 1]], answer: [1, 2], options: [[1, 2], [2, 2], [0, 2], [2, 3], [1, 3], [3, 3]] },
+  { sequence: [[0, 1], [1, 0], [1, 2]], answer: [2, 1], options: [[2, 1], [2, 3], [3, 2], [0, 2], [2, 0], [3, 1]] },
+  { sequence: [[1, 2], [1, 3], [2, 3]], answer: [2, 4], options: [[2, 4], [3, 4], [3, 5], [1, 4], [2, 5], [4, 4]] },
+  { sequence: [[0, 2], [0, 3], [1, 3]], answer: [1, 4], options: [[1, 4], [2, 4], [2, 5], [0, 4], [2, 3], [1, 5]] },
+  { sequence: [[0, 4], [0, 5], [1, 5]], answer: [1, 6], options: [[1, 6], [2, 6], [2, 0], [0, 6], [2, 5], [1, 0]] },
+  { sequence: [[1, 6], [6, 2], [2, 5]], answer: [5, 3], options: [[5, 3], [3, 4], [4, 0], [0, 5], [3, 5], [4, 3]] },
+  { sequence: [[0, 0], [1, 1], [2, 2]], answer: [3, 3], options: [[3, 3], [4, 4], [5, 5], [0, 1], [1, 0], [2, 3]] },
+  { sequence: [[6, 6], [5, 6], [5, 5]], answer: [4, 5], options: [[4, 5], [4, 4], [3, 4], [3, 3], [2, 3], [2, 2]] },
+  { sequence: [[0, 1], [2, 3], [4, 5]], answer: [6, 0], options: [[6, 0], [1, 2], [3, 4], [5, 6], [0, 2], [2, 0]] },
+  { sequence: [[0, 0], [1, 2], [2, 4]], answer: [3, 6], options: [[3, 6], [4, 1], [5, 3], [4, 2], [6, 5], [1, 3]] },
+  { sequence: [[6, 6], [5, 4], [4, 2]], answer: [3, 0], options: [[3, 0], [2, 5], [1, 3], [0, 1], [2, 4], [1, 4]] },
+  { sequence: [[0, 0], [1, 3], [2, 6]], answer: [3, 2], options: [[3, 2], [4, 5], [5, 1], [6, 4], [4, 6], [5, 0]] },
+  { sequence: [[0, 1], [3, 0], [6, 5]], answer: [2, 4], options: [[2, 4], [5, 3], [1, 2], [4, 1], [0, 6], [3, 2]] },
+  { sequence: [[0, 0], [0, 1], [1, 3]], answer: [3, 6], options: [[3, 6], [6, 2], [2, 5], [5, 1], [0, 4], [4, 0]] },
 
-  { id: 31, text: "Pintar cuadros o crear ilustraciones", campo: "AP" },
-  { id: 32, text: "Diseñar logotipos y marcas", campo: "AP" },
-  { id: 33, text: "Diseñador/a gráfico/a o Ilustrador/a", campo: "AP" },
-  { id: 34, text: "Realizar fotografía artística", campo: "AP" },
-  { id: 35, text: "Arquitecto/a o Diseñador/a de interiores", campo: "AP" },
-  { id: 36, text: "Crear animaciones y efectos visuales", campo: "AP" },
-
-  { id: 37, text: "Tocar un instrumento musical", campo: "M" },
-  { id: 38, text: "Componer melodías y canciones", campo: "M" },
-  { id: 39, text: "Músico/a profesional o Cantante", campo: "M" },
-  { id: 40, text: "Dirigir un coro o una orquesta", campo: "M" },
-  { id: 41, text: "Productor/a musical o DJ", campo: "M" },
-  { id: 42, text: "Grabar y mezclar música en estudio", campo: "M" },
-
-  { id: 43, text: "Ayudar a personas con problemas personales", campo: "SA" },
-  { id: 44, text: "Trabajar con comunidades vulnerables", campo: "SA" },
-  { id: 45, text: "Trabajador/a social o Educador/a social", campo: "SA" },
-  { id: 46, text: "Coordinar programas de voluntariado", campo: "SA" },
-  { id: 47, text: "Orientador/a familiar o Mediador/a", campo: "SA" },
-  { id: 48, text: "Defender derechos de grupos vulnerables", campo: "SA" },
-
-  { id: 49, text: "Gestionar presupuestos y finanzas", campo: "EE" },
-  { id: 50, text: "Crear planes de negocio", campo: "EE" },
-  { id: 51, text: "Administrador/a de empresas o Contador/a", campo: "EE" },
-  { id: 52, text: "Dirigir equipos de trabajo", campo: "EE" },
-  { id: 53, text: "Gerente o Director/a financiero/a", campo: "EE" },
-  { id: 54, text: "Analizar mercados e inversiones", campo: "EE" },
-
-  { id: 55, text: "Vender productos o servicios", campo: "PC" },
-  { id: 56, text: "Convencer a otros de una idea", campo: "PC" },
-  { id: 57, text: "Vendedor/a profesional o Ejecutivo/a comercial", campo: "PC" },
-  { id: 58, text: "Realizar presentaciones comerciales", campo: "PC" },
-  { id: 59, text: "Director/a de marketing o Publicista", campo: "PC" },
-  { id: 60, text: "Captar y fidelizar clientes", campo: "PC" },
-
-  { id: 61, text: "Organizar archivos y documentos", campo: "A" },
-  { id: 62, text: "Gestionar agenda y coordinar reuniones", campo: "A" },
-  { id: 63, text: "Secretario/a ejecutivo/a o Asistente", campo: "A" },
-  { id: 64, text: "Procesar datos en hojas de cálculo", campo: "A" },
-  { id: 65, text: "Auxiliar contable o Recepcionista", campo: "A" },
-  { id: 66, text: "Realizar trámites y gestiones administrativas", campo: "A" },
-
-  { id: 67, text: "Defender casos ante tribunales", campo: "JP" },
-  { id: 68, text: "Redactar contratos y documentos legales", campo: "JP" },
-  { id: 69, text: "Abogado/a o Juez/a", campo: "JP" },
-  { id: 70, text: "Participar en debates políticos", campo: "JP" },
-  { id: 71, text: "Político/a o Diplomático/a", campo: "JP" },
-  { id: 72, text: "Asesorar sobre temas legales o normativos", campo: "JP" },
-
-  { id: 73, text: "Presentar noticias en radio o televisión", campo: "CI" },
-  { id: 74, text: "Realizar entrevistas a personajes", campo: "CI" },
-  { id: 75, text: "Presentador/a de TV o Locutor/a", campo: "CI" },
-  { id: 76, text: "Gestionar redes sociales y contenido digital", campo: "CI" },
-  { id: 77, text: "Productor/a audiovisual o Community Manager", campo: "CI" },
-  { id: 78, text: "Editar videos y contenido multimedia", campo: "CI" },
-
-  { id: 79, text: "Explicar conceptos a estudiantes", campo: "E" },
-  { id: 80, text: "Preparar materiales didácticos", campo: "E" },
-  { id: 81, text: "Maestro/a o Profesor/a", campo: "E" },
-  { id: 82, text: "Motivar a estudiantes en su aprendizaje", campo: "E" },
-  { id: 83, text: "Orientador/a educativo/a o Pedagogo/a", campo: "E" },
-  { id: 84, text: "Diseñar programas de formación", campo: "E" },
-
-  { id: 85, text: "Patrullar y vigilar zonas", campo: "SE" },
-  { id: 86, text: "Investigar escenas de crímenes", campo: "SE" },
-  { id: 87, text: "Policía o Detective", campo: "SE" },
-  { id: 88, text: "Realizar rescates de emergencia", campo: "SE" },
-  { id: 89, text: "Bombero/a o Militar", campo: "SE" },
-  { id: 90, text: "Proteger personas o custodiar bienes", campo: "SE" },
-
-  { id: 91, text: "Entrenar a deportistas", campo: "D" },
-  { id: 92, text: "Planificar programas de entrenamiento", campo: "D" },
-  { id: 93, text: "Entrenador/a deportivo/a o Preparador/a físico/a", campo: "D" },
-  { id: 94, text: "Practicar deportes de competición", campo: "D" },
-  { id: 95, text: "Deportista profesional o Árbitro/a", campo: "D" },
-  { id: 96, text: "Organizar eventos deportivos", campo: "D" },
-
-  { id: 97, text: "Cultivar plantas y vegetales", campo: "AA" },
-  { id: 98, text: "Proteger espacios naturales", campo: "AA" },
-  { id: 99, text: "Ingeniero/a agrónomo/a o ambiental", campo: "AA" },
-  { id: 100, text: "Trabajar en conservación de fauna", campo: "AA" },
-  { id: 101, text: "Veterinario/a de campo o Guardaparques", campo: "AA" },
-  { id: 102, text: "Gestionar recursos naturales y reciclaje", campo: "AA" },
-
-  { id: 103, text: "Programar aplicaciones o páginas web", campo: "I" },
-  { id: 104, text: "Administrar bases de datos y redes", campo: "I" },
-  { id: 105, text: "Programador/a o Desarrollador/a web", campo: "I" },
-  { id: 106, text: "Desarrollar videojuegos o apps móviles", campo: "I" },
-  { id: 107, text: "Ingeniero/a de software o Analista de sistemas", campo: "I" },
-  { id: 108, text: "Implementar ciberseguridad o inteligencia artificial", campo: "I" }
+  // ----- BLOQUE C: 26–40 (avanzado) -----
+  { sequence: [[0, 0], [0, 2], [2, 6]], answer: [6, 5], options: [[6, 5], [5, 1], [1, 4], [4, 0], [3, 6], [6, 2]] },
+  { sequence: [[0, 0], [1, 0], [2, 1]], answer: [3, 3], options: [[3, 3], [4, 6], [5, 2], [6, 5], [4, 5], [2, 2]] },
+  { sequence: [[0, 0], [1, 2], [3, 5]], answer: [6, 3], options: [[6, 3], [2, 0], [5, 6], [4, 1], [0, 4], [1, 3]] },
+  { sequence: [[0, 0], [2, 0], [4, 1]], answer: [0, 3], options: [[0, 3], [2, 6], [4, 5], [6, 4], [0, 2], [1, 4]] },
+  { sequence: [[0, 0], [3, 0], [6, 1]], answer: [2, 3], options: [[2, 3], [5, 6], [1, 2], [4, 5], [0, 5], [3, 4]] },
+  { sequence: [[0, 1], [2, 3], [4, 5]], answer: [6, 1], options: [[6, 1], [0, 3], [2, 5], [4, 0], [1, 4], [3, 6]] },
+  { sequence: [[0, 0], [1, 2], [3, 4]], answer: [5, 6], options: [[5, 6], [1, 1], [2, 2], [3, 3], [4, 4], [6, 6]] },
+  { sequence: [[0, 1], [1, 3], [3, 5]], answer: [5, 1], options: [[5, 1], [1, 3], [3, 5], [0, 2], [2, 4], [4, 6]] },
+  { sequence: [[0, 0], [0, 1], [1, 2]], answer: [3, 0], options: [[3, 0], [4, 1], [5, 2], [6, 3], [0, 2], [1, 3]] },
+  { sequence: [[0, 0], [1, 1], [2, 3]], answer: [4, 6], options: [[4, 6], [0, 3], [1, 4], [2, 5], [3, 6], [4, 0]] },
+  { sequence: [[0, 0], [1, 2], [2, 5]], answer: [4, 3], options: [[4, 3], [6, 1], [0, 4], [1, 6], [3, 0], [5, 2]] },
+  { sequence: [[0, 0], [2, 1], [4, 3]], answer: [0, 6], options: [[0, 6], [2, 2], [4, 4], [6, 6], [1, 3], [3, 5]] },
+  { sequence: [[0, 0], [3, 1], [6, 3]], answer: [2, 6], options: [[2, 6], [5, 2], [1, 5], [4, 1], [0, 4], [3, 0]] },
+  { sequence: [[0, 0], [0, 1], [2, 0]], answer: [1, 3], options: [[1, 3], [3, 2], [5, 1], [4, 0], [0, 4], [2, 6]] },
+  { sequence: [[0, 0], [1, 2], [0, 4]], answer: [2, 6], options: [[2, 6], [1, 1], [3, 3], [5, 5], [0, 3], [4, 0]] }
 ];
 
-// ========== ESTADO GLOBAL ==========
-let user = {};
-let answers = {};
-let timeStart = 0, timeEnd = 0;
-let timerInterval;
-let elapsedSeconds = 0;
+// ========================
+// ESTADO GLOBAL
+// ========================
+let currentIndex = 0;
+let answersState = new Array(TOTAL_ITEMS).fill(null); // índice de opción elegida (0-5)
+let shuffledOptions = {}; // por ítem: array de {tile, index}
+let timeLeft = MAX_TIME_SECONDS;
+let timerId = null;
 
-// ✅ URL DE GOOGLE APPS SCRIPT (desde constants.js)
-const WEB_APP_URL = URL_TEST3;
+const participant = {
+  name: "",
+  lastname: "",
+  email: "",
+};
 
-// ========== NAVEGACIÓN ==========
-function showSection(sectionId) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-  window.scrollTo(0, 0);
+// ========================
+// UTILIDADES BÁSICAS
+// ========================
+function $(id) {
+  return document.getElementById(id);
 }
 
-function goToInstructions() {
-  const n = document.getElementById('userName').value.trim();
-  const l = document.getElementById('userLast').value.trim();
-  const e = document.getElementById('userEmail').value.trim();
-  if (!n || !l || !e) return alert("Complete todos los campos");
-  user = { name: n, lastname: l, email: e };
-  showSection('instSection');
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
-// ========== TEST ==========
-function startTest() {
-  timeStart = Date.now();
-  renderQuestions();
-  showSection('testSection');
-  document.getElementById('timerDisplay').style.display = 'block';
-  elapsedSeconds = 0;
-  startTimer();
-}
-
-function renderQuestions() {
-  const container = document.getElementById('questionsContainer');
-  container.innerHTML = '';
-
-  ITEMS_IPP.forEach(q => {
-    const div = document.createElement('div');
-    div.className = 'question-item';
-    div.id = 'q-' + q.id;
-    div.innerHTML = `
-      <span class="q-number">${q.id}</span>
-      <span class="q-text">${q.text}</span>
-      <div class="options-ipp">
-        <button class="opt-btn-ipp" onclick="selectAnswer(${q.id}, 'A', this)" title="Agrada">A</button>
-        <button class="opt-btn-ipp" onclick="selectAnswer(${q.id}, 'I', this)" title="Indiferente">I</button>
-        <button class="opt-btn-ipp" onclick="selectAnswer(${q.id}, 'D', this)" title="Desagrada">D</button>
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function selectAnswer(qId, val, btnElem) {
-  answers[qId] = val;
-
-  const parent = btnElem.parentElement;
-  Array.from(parent.children).forEach(child => {
-    child.classList.remove('selected-a', 'selected-i', 'selected-d');
-  });
-  btnElem.classList.add('selected-' + val.toLowerCase());
-
-  document.getElementById('q-' + qId).classList.add('answered');
-  updateProgress();
-}
-
-function updateProgress() {
-  const answered = Object.keys(answers).length;
-  const total = 108;
-  const percent = Math.round((answered / total) * 100);
-
-  document.getElementById('progressBar').style.width = percent + '%';
-  document.getElementById('progressCount').innerText = answered;
-  document.getElementById('progressPercent').innerText = percent + '%';
-}
-
-function finishTest() {
-  const answeredCount = Object.keys(answers).length;
-  if (answeredCount < 108) {
-    if (!confirm(`Ha respondido ${answeredCount} de 108 preguntas.\n\n¿Desea finalizar de todos modos?`)) return;
+function shuffleArray(array) {
+  const arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  clearInterval(timerInterval);
-  timeEnd = Date.now();
-  document.getElementById('timerDisplay').style.display = 'none';
-  showSection('finalSection');
-  sendResults();
+  return arr;
 }
 
-// ========== ENVIAR RESULTADOS ==========
-async function sendResults() {
-  const tiempoUsado = formatTimeUsed(timeStart, timeEnd);
-  const respuestasFormateadas = formatAnswers(answers);
-  const respuestasFinal = `{${tiempoUsado} - ${respuestasFormateadas}}`;
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+}
 
-  const today = new Date();
-  const fecha = today.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
+// ========================
+// MODAL
+// ========================
+function openModal({ title, body, onConfirm, onCancel }) {
+  const overlay = $("modal-overlay");
+  $("modal-title").textContent = title;
+  $("modal-body").textContent = body;
+  overlay.classList.add("active");
+  overlay.setAttribute("aria-hidden", "false");
 
-  const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
-  const permisoRaw = sessionUser.reenvioSimultaneo || 'NO';
-  const emailAdmin = sessionUser.adminEmail || "escencialconsult@gmail.com";
+  const confirmBtn = $("modal-confirm");
+  const cancelBtn = $("modal-cancel");
 
-  const filaOrdenada = [
-    user.name || "SinNombre",
-    user.lastname || "SinApellido",
-    permisoRaw == "SI" ? user.email : "",
-    emailAdmin,
-    fecha,
-    respuestasFinal
-  ];
+  confirmBtn.onclick = () => {
+    closeModal();
+    if (onConfirm) onConfirm();
+  };
+  cancelBtn.onclick = () => {
+    closeModal();
+    if (onCancel) onCancel();
+  };
+  confirmBtn.focus();
+}
 
-  const payload = {
-    nombreHoja: "Respuestas",
-    fila: filaOrdenada
+function closeModal() {
+  const overlay = $("modal-overlay");
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+}
+
+// ========================
+// CREACIÓN DE DOMINÓ
+// ========================
+function createDots(number) {
+  const container = document.createElement('div');
+  container.style.position = 'relative';
+  container.style.width = '100%';
+  container.style.height = '100%';
+
+  const positions = {
+    0: [],
+    1: [[50, 50]],
+    2: [[25, 25], [75, 75]],
+    3: [[25, 25], [50, 50], [75, 75]],
+    4: [[25, 25], [75, 25], [25, 75], [75, 75]],
+    5: [[25, 25], [75, 25], [50, 50], [25, 75], [75, 75]],
+    6: [[25, 25], [75, 25], [25, 50], [75, 50], [25, 75], [75, 75]]
   };
 
-  console.log("Enviando a la base de datos:", payload);
+  (positions[number] || []).forEach(([left, top]) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left = left + '%';
+    dot.style.top = top + '%';
+    dot.style.transform = 'translate(-50%, -50%)';
+    container.appendChild(dot);
+  });
 
-  try {
-    const res = await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
+  return container;
+}
 
-    const txt = await res.text().catch(() => "");
-    console.log("GAS Response:", txt);
+function createDomino(top, bottom, isSmall = false) {
+  const domino = document.createElement('div');
+  domino.className = isSmall ? 'domino domino-small' : 'domino';
 
-    document.getElementById('loadingMsg').innerText = "¡Datos guardados correctamente!";
-    document.getElementById('loadingMsg').style.color = "#059669";
-  } catch (error) {
-    console.error("Error enviando a Google Sheets:", error);
-    document.getElementById('loadingMsg').innerText = "⚠️ Error de conexión, avise al administrador.";
-    document.getElementById('loadingMsg').style.color = "orange";
+  const topHalf = document.createElement('div');
+  topHalf.className = 'domino-half';
+  topHalf.appendChild(createDots(top));
+
+  const bottomHalf = document.createElement('div');
+  bottomHalf.className = 'domino-half';
+  bottomHalf.appendChild(createDots(bottom));
+
+  domino.appendChild(topHalf);
+  domino.appendChild(bottomHalf);
+  return domino;
+}
+
+// ========================
+// VALIDACIÓN DE REGISTRO
+// ========================
+function validateRegistration() {
+  const nameEl = $("user-name");
+  const lastnameEl = $("user-lastname");
+  const emailEl = $("user-email");
+
+  const errors = { name: "", lastname: "", email: "" };
+  let isValid = true;
+
+  const nameVal = nameEl.value.trim();
+  const lastnameVal = lastnameEl.value.trim();
+  const emailVal = emailEl.value.trim();
+
+  if (!nameVal) { errors.name = "Por favor, ingresa tu nombre."; isValid = false; }
+  if (!lastnameVal) { errors.lastname = "Por favor, ingresa tu apellido."; isValid = false; }
+  if (!emailVal) { errors.email = "Por favor, ingresa tu correo."; isValid = false; }
+  else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)) {
+    errors.email = "El formato del correo no es válido.";
+    isValid = false;
   }
+
+  function showError(idBase, msg) {
+    const inputEl = $(idBase);
+    const errEl = $(idBase + "-error");
+    if (msg) {
+      inputEl.classList.add("input-error");
+      errEl.textContent = msg;
+      errEl.style.display = "block";
+    } else {
+      inputEl.classList.remove("input-error");
+      errEl.textContent = "";
+      errEl.style.display = "none";
+    }
+  }
+
+  showError("user-name", errors.name);
+  showError("user-lastname", errors.lastname);
+  showError("user-email", errors.email);
+
+  if (isValid) {
+    participant.name = nameVal;
+    participant.lastname = lastnameVal;
+    participant.email = emailVal;
+  }
+
+  return isValid;
 }
 
-// ========== UTILIDADES ==========
-function formatTimeUsed(startTime, endTime) {
-  if (!startTime || !endTime) return "0m 0s";
-  const diffMs = endTime - startTime;
-  const totalSeconds = Math.floor(diffMs / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}m ${seconds}s`;
-}
-
-function formatAnswers(answersObj) {
-  const sortedIds = Object.keys(answersObj).map(Number).sort((a, b) => a - b);
-  const formatted = sortedIds.map(id => `${id};${answersObj[id]}`).join(', ');
-  return formatted || "Sin respuestas";
-}
-
-// ========== TIMER ==========
+// ========================
+// TIMER
+// ========================
 function startTimer() {
-  updateTimer();
-  timerInterval = setInterval(() => {
-    elapsedSeconds++;
-    updateTimer();
+  timeLeft = MAX_TIME_SECONDS;
+  $("timer").classList.remove("timer-over");
+  $("timer").textContent = formatTime(timeLeft);
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    if (timeLeft <= 0) {
+      timeLeft = 0;
+      $("timer").textContent = formatTime(0);
+      $("timer").classList.add("timer-over");
+      clearInterval(timerId);
+      timerId = null;
+      handleAutoFinishByTime();
+    } else {
+      $("timer").textContent = formatTime(timeLeft);
+    }
   }, 1000);
 }
 
-function updateTimer() {
-  const m = Math.floor(elapsedSeconds / 60).toString().padStart(2, '0');
-  const s = (elapsedSeconds % 60).toString().padStart(2, '0');
-  document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+function stopTimer() {
+  if (timerId !== null) {
+    clearInterval(timerId);
+    timerId = null;
+  }
 }
 
-// ===============================
-// ✅ EXPORTAR A WINDOW (por onclick en HTML)
-// ===============================
-window.goToInstructions = goToInstructions;
-window.startTest = startTest;
-window.finishTest = finishTest;
-window.selectAnswer = selectAnswer;
+function handleAutoFinishByTime() {
+  openModal({
+    title: "Tiempo finalizado",
+    body: "El tiempo máximo ha terminado. Se calcularán los resultados con las respuestas registradas.",
+    onConfirm: finishTest,
+    onCancel: finishTest
+  });
+}
+
+// ========================
+// RENDER DE ÍTEM
+// ========================
+function renderCurrentItem() {
+  const item = ITEMS[currentIndex];
+  $("question-number").textContent = `Ítem ${currentIndex + 1} de ${ITEMS.length}`;
+
+  // Secuencia
+  const seq = $("sequence-container");
+  seq.innerHTML = "";
+  item.sequence.forEach(dom => {
+    seq.appendChild(createDomino(dom[0], dom[1]));
+  });
+  const qm = document.createElement("div");
+  qm.className = "question-mark";
+  qm.textContent = "?";
+  seq.appendChild(qm);
+
+  // Opciones (con orden estable por ítem)
+  if (!shuffledOptions[currentIndex]) {
+    const arr = item.options.map((opt, idx) => ({ tile: opt, index: idx }));
+    shuffledOptions[currentIndex] = shuffleArray(arr);
+  }
+  const opts = shuffledOptions[currentIndex];
+  const selectedIndex = answersState[currentIndex];
+
+  const optContainer = $("options-container");
+  optContainer.innerHTML = "";
+  opts.forEach(optObj => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "option-btn";
+    btn.setAttribute("role", "radio");
+    btn.setAttribute("aria-checked", "false");
+    btn.dataset.optionIndex = String(optObj.index);
+
+    if (selectedIndex === optObj.index) {
+      btn.classList.add("selected");
+      btn.setAttribute("aria-checked", "true");
+    }
+
+    btn.appendChild(createDomino(optObj.tile[0], optObj.tile[1], true));
+    const sr = document.createElement("span");
+    sr.className = "sr-only";
+    sr.textContent = "Seleccionar esta ficha";
+    btn.appendChild(sr);
+
+    btn.addEventListener("click", () => {
+      selectOption(optObj.index);
+    });
+
+    btn.addEventListener("keydown", (ev) => {
+      if (ev.key === " " || ev.key === "Enter") {
+        ev.preventDefault();
+        selectOption(optObj.index);
+      }
+    });
+
+    optContainer.appendChild(btn);
+  });
+
+  // Navegación
+  $("btn-prev").disabled = currentIndex === 0;
+}
+
+function selectOption(optionIndex) {
+  answersState[currentIndex] = optionIndex;
+
+  // Actualizar estado visual
+  document.querySelectorAll(".option-btn").forEach(btn => {
+    const idx = parseInt(btn.dataset.optionIndex, 10);
+    if (idx === optionIndex) {
+      btn.classList.add("selected");
+      btn.setAttribute("aria-checked", "true");
+    } else {
+      btn.classList.remove("selected");
+      btn.setAttribute("aria-checked", "false");
+    }
+  });
+
+  // Avanzar automáticamente salvo en el último ítem
+  if (currentIndex < ITEMS.length - 1) {
+    setTimeout(() => {
+      currentIndex++;
+      renderCurrentItem();
+    }, 250);
+  }
+}
+
+// ========================
+// CÁLCULO DE PUNTUACIONES
+// ========================
+function computeScores() {
+  let pd = 0;
+  let blockA = 0;
+  let blockB = 0;
+  let blockC = 0;
+  let answeredCount = 0;
+
+  ITEMS.forEach((item, idx) => {
+    const selectedIndex = answersState[idx];
+    if (selectedIndex !== null && selectedIndex >= 0) {
+      answeredCount++;
+      const selectedTile = item.options[selectedIndex];
+      const ans = item.answer;
+      const correct = selectedTile &&
+        selectedTile[0] === ans[0] &&
+        selectedTile[1] === ans[1];
+      if (correct) {
+        pd++;
+        if (idx < 10) blockA++;
+        else if (idx < 25) blockB++;
+        else blockC++;
+      }
+    }
+  });
+
+  const pa = Math.round((pd / ITEMS.length) * 100);
+  const elapsedSec = MAX_TIME_SECONDS - timeLeft;
+  const elapsedSecSafe = elapsedSec > 0 ? elapsedSec : 1;
+  const elapsedMinutes = elapsedSecSafe / 60;
+  const ier = pd / Math.sqrt(elapsedMinutes);
+  const speedItemsPerMin = answeredCount / elapsedMinutes;
+
+  return {
+    pd,
+    pa,
+    blockA,
+    blockB,
+    blockC,
+    answeredCount,
+    omitted: ITEMS.length - answeredCount,
+    elapsedSec: Math.round(elapsedSecSafe),
+    elapsedMinutes,
+    ier,
+    speedItemsPerMin
+  };
+}
+
+// ========================
+// FINALIZAR PRUEBA
+// ========================
+function requestFinishTest() {
+  const { answeredCount, omitted } = computeScores();
+  const msg = omitted > 0
+    ? `Has respondido ${answeredCount} de ${ITEMS.length} ítems. Quedan ${omitted} sin respuesta.\n¿Deseas finalizar la prueba y enviar tus resultados?`
+    : `Has respondido los ${ITEMS.length} ítems.\n¿Deseas finalizar la prueba y enviar tus resultados?`;
+
+  openModal({
+    title: "Finalizar prueba",
+    body: msg,
+    onConfirm: finishTest
+  });
+}
+
+async function finishTest() {
+  stopTimer();
+  const scores = computeScores();
+
+  // Guardar en Apps Script
+  if (SAVE_RESULTS_URL) {
+    try {
+      await saveResultsRemote(scores);
+    } catch (e) {
+      console.error("Error al enviar resultados:", e);
+    }
+  }
+
+  // Ajuste visual del contenedor
+  const cont = $("main-container");
+  cont.classList.remove("modo-test");
+  cont.classList.add("modo-resultados");
+
+  $("results-participant").textContent = `${participant.name} ${participant.lastname}`;
+
+  showScreen("screen-results");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ========================
+// ENVÍO A APPS SCRIPT
+// ========================
+async function saveResultsRemote(scores) {
+  const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
+  const emailAdmin = sessionUser.adminEmail || "escencialconsult@gmail.com";
+
+  // Construir string de respuestas "1:1,2:0,3:1,..."
+  let respuestasString = "";
+  for (let i = 0; i < ITEMS.length; i++) {
+    const answerIndex = answersState[i];
+    let value = 0;
+
+    if (answerIndex !== null && answerIndex >= 0) {
+      const item = ITEMS[i];
+      const selectedTile = item.options[answerIndex];
+      const ans = item.answer;
+
+      const isCorrect =
+        selectedTile &&
+        selectedTile[0] === ans[0] &&
+        selectedTile[1] === ans[1];
+
+      value = isCorrect ? 1 : 0;
+    }
+
+    respuestasString += `${i + 1}:${value}`;
+    if (i < ITEMS.length - 1) respuestasString += ",";
+  }
+   const permisoRaw = sessionUser.reenvioSimultaneo || 'NO';
+  const datosRecibidos = {
+    fila: [
+      participant.name,
+      participant.lastname,
+      permisoRaw == 'SI' ? participant.email : "",
+      emailAdmin,
+      new Date().toISOString(),
+      respuestasString
+    ]
+  };
+
+  const resp = await fetch(SAVE_RESULTS_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(datosRecibidos),
+  });
+
+  const text = await resp.text();
+  console.log("Respuesta Apps Script:", text);
+
+  if (!resp.ok || !/^Guardado/i.test(text.trim())) {
+    throw new Error("Apps Script respondió: " + text);
+  }
+}
+
+// ========================
+// EVENTOS
+// ========================
+$("btn-go-instructions").addEventListener("click", () => {
+  if (!validateRegistration()) return;
+  $("participant-label").textContent = `Participante: ${participant.name} ${participant.lastname}`;
+  showScreen("screen-instructions");
+});
+
+$("btn-back-registration").addEventListener("click", () => {
+  showScreen("screen-registration");
+});
+
+$("btn-start-test").addEventListener("click", () => {
+  currentIndex = 0;
+  answersState = new Array(TOTAL_ITEMS).fill(null);
+  shuffledOptions = {};
+  timeLeft = MAX_TIME_SECONDS;
+
+  $("main-container").classList.add("modo-test");
+  showScreen("screen-test");
+  renderCurrentItem();
+  startTimer();
+});
+
+$("btn-prev").addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderCurrentItem();
+  }
+});
+
+$("btn-summary-mini").addEventListener("click", () => {
+  const { answeredCount, omitted } = computeScores();
+  openModal({
+    title: "Resumen rápido",
+    body: `Ítems respondidos: ${answeredCount} · Omisiones: ${omitted}.`,
+    onConfirm: closeModal,
+    onCancel: closeModal
+  });
+});
+
+$("btn-finish").addEventListener("click", () => {
+  requestFinishTest();
+});
