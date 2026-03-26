@@ -1,4 +1,4 @@
-import { URL_TEST6 } from "../../assets/js/config/constants.js";
+import { URL_TEST2 } from "../../assets/js/config/constants.js";
 
 (function guard() {
   const logged = localStorage.getItem('sessionLoggedIn') === '1';
@@ -334,7 +334,7 @@ function displayResults(scores) {
 }
 
 async function sendToGoogleSheets(data) {
-  const scriptUrl = URL_TEST6;
+  const scriptUrl = URL_TEST2;
 
   const timestamp = new Date().toLocaleString('es-AR', {
     day: '2-digit', month: '2-digit', year: 'numeric',
