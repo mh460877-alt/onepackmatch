@@ -733,11 +733,16 @@ function enviarConReenvioSimultaneo(payload, googleScriptUrl) {
       });
 
 // Fila ordenada según el formato de la hoja: Fecha | Nombre | Apellido | Correo | Respuestas
+      const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
+      const permisoRaw = sessionUser.reenvioSimultaneo || 'NO';
+      const emailAdmin = sessionUser.adminEmail || "";
+
       const filaOrdenada = [
         fechaHora,
         user.name || "SinNombre",
         user.lastname || "SinApellido",
-        user.email || "SinEmail",
+        permisoRaw === 'SI' ? (user.email || "") : "",
+        emailAdmin,
         respuestasFinal
       ];
 
@@ -749,7 +754,7 @@ function enviarConReenvioSimultaneo(payload, googleScriptUrl) {
       console.log("Enviando a la base de datos:", payload);
 
       // URL DE GOOGLE APPS SCRIPT
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzHxKYZ3qkkIqh-0c4ygCos_dPtu-T3ZESyaNFW-KBqtrM0lRmuY8EbddzqZoIt_ItmJg/exec';
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrmlPp2mIBrxDHxlBDpr_nFtv11qIHHvtv76eS_8QRTofriEF717bij4J8QcPe4BXT/exec';
 
       enviarConReenvioSimultaneo(payload, GOOGLE_SCRIPT_URL);
 
