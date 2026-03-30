@@ -47,7 +47,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1300px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
@@ -228,15 +228,14 @@
         /* CUADRADOS SIN SCROLL - TODO VISIBLE */
         .symbol-grid {
             display: grid;
-            grid-template-columns: repeat(40, 24px);
+            grid-template-columns: repeat(40, 1fr);
             gap: 2px;
             margin-bottom: 24px;
             background: white;
             padding: 16px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            justify-content: center;
-            /* SIN max-height ni overflow - todo visible */
+            width: 100%;
         }
 
         /* EFECTO BORROSO CUANDO NO ESTÁ ACTIVO */
@@ -247,8 +246,8 @@
         }
         
         .symbol {
-            width: 24px;
-            height: 24px;
+            width: 100%;
+            aspect-ratio: 1;
             cursor: pointer;
             transition: all 0.2s ease;
             border-radius: 3px;
@@ -273,8 +272,8 @@
         }
         
         .symbol svg {
-            width: 20px;
-            height: 20px;
+            width: 80%;
+            height: 80%;
         }
         
         .controls {
@@ -475,23 +474,68 @@
         /* TABLETS */
         @media (min-width: 769px) and (max-width: 1024px) {
             .symbol-grid {
-                grid-template-columns: repeat(30, 18px);
+                grid-template-columns: repeat(40, 1fr);
                 gap: 2px;
             }
-            
-            .symbol {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .symbol svg {
-                width: 16px;
-                height: 16px;
-            }
+        }
+
+        .btn-back {
+            position: fixed;
+            top: max(12px, env(safe-area-inset-top));
+            left: max(12px, env(safe-area-inset-left));
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #020f27 !important;
+            border: 2px solid #020f27;
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            font-weight: 700;
+            z-index: 9999;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            transition: all 0.25s ease;
+            font-size: 14px;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            background: #020f27;
+            color: #fff !important;
+            box-shadow: 0 6px 15px rgba(2, 15, 39, 0.2);
+        }
+
+        .btn-back svg {
+            transition: transform 0.25s ease;
+        }
+
+        .btn-back:hover svg {
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 480px) {
+            .btn-back { padding: 8px 12px; font-size: 12px; }
+        }
+
+        @media print {
+            .btn-back { display: none !important; }
         }
     </style>
 </head>
 <body>
+
+    <a href="../../usuarios.html" class="btn-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6" />
+    </svg>
+    Volver a Usuarios
+    </a>
+
     <div class="container">
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px; background-color: white; border-radius: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
             <div>

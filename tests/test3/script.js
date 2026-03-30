@@ -1,4 +1,4 @@
-import { URL_TEST5 } from "../../assets/js/config/constants.js";
+import { URL_TEST3 } from "../../assets/js/config/constants.js";
 
 (function guard() {
   const logged = localStorage.getItem('sessionLoggedIn') === '1';
