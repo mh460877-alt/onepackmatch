@@ -473,18 +473,6 @@
 
 
 function enviarConReenvioSimultaneo(payload, googleScriptUrl) {
-    // ENVÍO PRINCIPAL (siempre se ejecuta)
-    fetch(googleScriptUrl, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload)
-    }).then(() => {
-      console.log("Datos enviados correctamente");
-    }).catch(err => {
-      console.error("Error al enviar:", err);
-    });
-
     // REENVÍOS OPCIONALES (admin y usuario)
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
     let permisoRaw = localStorage.getItem('PERMISO_REENVIO') || 'NO';

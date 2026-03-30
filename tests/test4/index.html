@@ -989,7 +989,12 @@
             console.log('- Respuestas:', respuestasNumericas.length, 'marcadas');
 
             // CONSTRUIR URL
-            const url = `${GOOGLE_SHEET_URL}?accion=guardar&nombre=${encodeURIComponent(userName)}&apellido=${encodeURIComponent(userLastName)}&email=${encodeURIComponent(userEmail)}&respuestas=${encodeURIComponent(respuestasString)}`;
+            const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
+            const emailAdmin = sessionUser.adminEmail || "";
+            const permisoRaw = sessionUser.reenvioSimultaneo || 'NO';
+            const emailEvaluado = permisoRaw === 'SI' ? userEmail : "";
+
+            const url = `${GOOGLE_SHEET_URL}?accion=guardar&nombre=${encodeURIComponent(userName)}&apellido=${encodeURIComponent(userLastName)}&email=${encodeURIComponent(emailEvaluado)}&emailAdmin=${encodeURIComponent(emailAdmin)}&respuestas=${encodeURIComponent(respuestasString)}`;
 
             console.log('📤 Enviando a Google Sheets...');
 
