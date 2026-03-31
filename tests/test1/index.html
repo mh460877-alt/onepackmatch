@@ -746,16 +746,13 @@ function enviarConReenvioSimultaneo(payload, googleScriptUrl) {
 
     // ========== ENVIAR RESULTADOS ==========
     function sendResults() {
-      const tiempoTotal = formatTimeUsed(timeStart, Date.now());
       const tiempoEstado = formatTimeUsed(timeStart, timeEstadoEnd);
       const tiempoRasgo = formatTimeUsed(timeEstadoEnd, Date.now());
 
       const puntuaciones = calcularPuntuaciones();
 
-      // Formato: {PI: tiempo - respuestas} {PII: tiempo - respuestas}
       const respuestasFinal = `{PI: ${tiempoEstado} - ${puntuaciones.estado}} {PII: ${tiempoRasgo} - ${puntuaciones.rasgo}}`;
 
-      // Fecha y hora actual en formato específico
       const now = new Date();
       const fechaHora = now.toLocaleString('es-AR', {
         day: '2-digit',
@@ -767,33 +764,33 @@ function enviarConReenvioSimultaneo(payload, googleScriptUrl) {
         hour12: false
       });
 
-// Fila ordenada según el formato de la hoja: Fecha | Nombre | Apellido | Correo | Respuestas
       const sessionUser = JSON.parse(localStorage.getItem('sessionUser')) || {};
       const permisoRaw = sessionUser.reenvioSimultaneo || 'NO';
       const emailAdmin = sessionUser.adminEmail || "";
+      const emailUsuario = permisoRaw === 'SI' ? (user.email || "") : "";
 
       const filaOrdenada = [
         fechaHora,
         user.name || "SinNombre",
         user.lastname || "SinApellido",
-        permisoRaw === 'SI' ? (user.email || "") : "",
+        emailUsuario,
         emailAdmin,
         respuestasFinal
       ];
 
-      const payload = {
-        nombreHoja: "Respuestas",
-        fila: filaOrdenada
-      };
+      const payload = { nombreHoja: "Respuestas", fila: filaOrdenada };
 
       console.log("Enviando a la base de datos:", payload);
 
-      // URL DE GOOGLE APPS SCRIPT
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyrmlPp2mIBrxDHxlBDpr_nFtv11qIHHvtv76eS_8QRTofriEF717bij4J8QcPe4BXT/exec';
 
-      enviarConReenvioSimultaneo(payload, GOOGLE_SCRIPT_URL);
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
 
-      // Feedback visual
       const msg = document.getElementById('loadingMsg');
       msg.innerText = "¡Resultados STAI guardados correctamente!";
       msg.style.color = "#059669";
